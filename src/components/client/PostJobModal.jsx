@@ -6,49 +6,40 @@ import { useJobsContext } from "../../context/JobContext";
 function PostJobModal({ open, onClose }) {
   const { addJob } = useJobsContext();
 
-  const [title, setTitle]           = useState("");
-  const [description, setDesc]      = useState("");
-  const [category, setCategory]     = useState("Design");
-  const [timeline, setTimeline]     = useState(14);
-  const [budget, setBudget]         = useState("");
-  const [skills, setSkills]         = useState("");
+  const [title,       setTitle]    = useState("");
+  const [description, setDesc]     = useState("");
+  const [category,    setCategory] = useState("Design");
+  const [timeline,    setTimeline] = useState(14);
+  const [budget,      setBudget]   = useState("");
+  const [skills,      setSkills]   = useState("");
+  const [loading,     setLoading]  = useState(false);
 
-  const amount  = parseFloat(budget) || 0;
-  const fee     = amount * 0.03;
-  const total   = amount + fee;
+  const amount = parseFloat(budget) || 0;
+  const fee    = amount * 0.03;
+  const total  = amount + fee;
 
-  const submitJob = () => {
+  const handleSubmit = async () => {
     if (!title || !budget) return;
-
-    addJob({
-      id:                Date.now(),
+    setLoading(true);
+    await addJob({
       title,
-      company:           "ChainWork",
-      amount,
+      description,
       budget,
-      status:            "hiring",
-      tags:              skills.split(",").map((s) => s.trim()).filter(Boolean),
-      daysLeft:          Number(timeline),
-      progress:          0,
-      meta:              `Posted just now · Ends in ${timeline} days`,
-      applicantInitials: [],
+      timeline,
+      tags: skills.split(",").map((s) => s.trim()).filter(Boolean),
     });
-
-    // reset
     setTitle(""); setDesc(""); setBudget(""); setSkills(""); setTimeline(14);
+    setLoading(false);
     onClose();
   };
 
   return (
     <Modal open={open} onClose={onClose} title="Post a New Job">
-      {/* Info box */}
       <div className="info-box purple" style={{ marginBottom: "1.2rem" }}>
         <div className="icon">🔒</div>
         <p>
-          Your payment is{" "}
-          <strong>locked in a smart contract escrow</strong> when you post.
-          Funds only release when you approve submitted work — fully on-chain
-          and trustless.
+          Your payment is <strong>locked in a smart contract escrow</strong> when
+          you post. Funds only release when you approve submitted work.
         </p>
       </div>
 
@@ -73,19 +64,6 @@ function PostJobModal({ open, onClose }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-        <div className="form-group">
-          <label className="form-label">Category</label>
-          <select
-            className="form-select"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option>Design</option>
-            <option>Development</option>
-            <option>Smart Contracts</option>
-            <option>Marketing</option>
-          </select>
-        </div>
 
         <div className="form-group">
           <label className="form-label">Timeline (days)</label>
@@ -116,45 +94,21 @@ function PostJobModal({ open, onClose }) {
       {/* Escrow breakdown */}
       <div className="panel" style={{ marginBottom: "1.2rem" }}>
         <div className="panel-body">
-          <div
-            style={{
-              fontSize: "0.8rem",
-              color: "var(--muted)",
-              marginBottom: "8px",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
-            }}
-          >
+          <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginBottom: "8px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>
             Escrow Breakdown
           </div>
-
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "6px" }}>
             <span style={{ color: "var(--muted)" }}>Payment to freelancer</span>
             <span style={{ fontFamily: "var(--font-mono)" }}>${amount.toFixed(2)}</span>
           </div>
-
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "6px" }}>
             <span style={{ color: "var(--muted)" }}>Platform fee (3%)</span>
             <span style={{ fontFamily: "var(--font-mono)", color: "var(--muted)" }}>${fee.toFixed(2)}</span>
           </div>
-
-          <div
-            style={{
-              borderTop: "1px solid var(--border)",
-              margin: "8px 0",
-              paddingTop: "8px",
-              display: "flex",
-              justifyContent: "space-between",
-              fontWeight: 600,
-            }}
-          >
+          <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0", paddingTop: "8px", display: "flex", justifyContent: "space-between", fontWeight: 600 }}>
             <span>Total locked on-chain</span>
-            <span style={{ fontFamily: "var(--font-mono)", color: "var(--teal)" }}>
-              ${total.toFixed(2)}
-            </span>
+            <span style={{ fontFamily: "var(--font-mono)", color: "var(--teal)" }}>${total.toFixed(2)}</span>
           </div>
-
           <div className="chain-visual" style={{ padding: "8px 0 0" }}>
             <div className="chain-block">Your wallet</div>
             <span className="chain-arrow">→</span>
@@ -179,8 +133,8 @@ function PostJobModal({ open, onClose }) {
         <Button variant="outline" onClick={onClose} style={{ flex: 1 }}>
           Cancel
         </Button>
-        <Button onClick={submitJob} style={{ flex: 2 }}>
-          🔒 Lock Funds & Post Job
+        <Button onClick={handleSubmit} disabled={loading} style={{ flex: 2 }}>
+          {loading ? "Posting..." : "🔒 Lock Funds & Post Job"}
         </Button>
       </div>
     </Modal>

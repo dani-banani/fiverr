@@ -18,10 +18,7 @@ function ReviewPanel({ job }) {
     <>
       <div
         className="panel"
-        style={{
-          marginBottom: "16px",
-          borderColor: "rgba(248,113,113,0.3)",
-        }}
+        style={{ marginBottom: "16px", borderColor: "rgba(248,113,113,0.3)" }}
       >
         <div
           className="panel-head"
@@ -47,10 +44,61 @@ function ReviewPanel({ job }) {
             <div className="review-submission-title">
               {job.submissionTitle ?? "Submitted Work"}
             </div>
-            <div className="review-submission-desc">
-              {job.submissionDesc ??
-                "The freelancer has delivered the completed work for this job. Review the attached files and notes before taking action."}
-            </div>
+
+            {/* Delivery notes */}
+            {job.submissionDesc && (
+              <div className="review-submission-desc">
+                {job.submissionDesc}
+              </div>
+            )}
+
+            {/* Delivery link — clickable */}
+            {job.submissionFile && (
+  <div
+    style={{
+      margin: "10px 0",
+      padding: "10px 12px",
+      background: "var(--bg)",
+      border: "1px solid var(--border2)",
+      borderRadius: "8px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "10px",
+    }}
+  >
+    <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
+      <span style={{ fontSize: "1rem", flexShrink: 0 }}>🔗</span>
+      <a                               // ✅ added
+        href={job.submissionFile}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: "var(--accent2)",
+          fontSize: "0.8rem",
+          fontFamily: "var(--font-mono)",
+          textDecoration: "none",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {job.submissionFile}
+      </a>
+    </div>
+    <a                                
+      href={job.submissionFile}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="btn btn-sm btn-outline"
+      style={{ flexShrink: 0, fontSize: "0.75rem", padding: "4px 10px" }}
+    >
+      Open ↗
+    </a>
+  </div>
+)}
+
+            {/* Submission date */}
             {job.submissionDate && (
               <div
                 style={{
@@ -59,31 +107,18 @@ function ReviewPanel({ job }) {
                   marginBottom: "10px",
                 }}
               >
-                📎 {job.submissionFile ?? "submission.pdf"} · Submitted{" "}
-                {job.submissionDate}
+                📅 Submitted {job.submissionDate}
               </div>
             )}
 
-            <div className="review-actions">
-              <Button
-                variant="teal"
-                small
-                onClick={() => approveJob(job.id)}
-              >
+            <div className="review-actions" style={{ marginTop: "12px" }}>
+              <Button variant="teal" small onClick={() => approveJob(job.id)}>
                 ✅ Approve & Release Payment
               </Button>
-              <Button
-                variant="amber"
-                small
-                onClick={() => setRedoOpen(true)}
-              >
+              <Button variant="amber" small onClick={() => setRedoOpen(true)}>
                 🔄 Request Revision
               </Button>
-              <Button
-                variant="danger"
-                small
-                onClick={() => setRejectOpen(true)}
-              >
+              <Button variant="danger" small onClick={() => setRejectOpen(true)}>
                 ✗ Reject Job
               </Button>
             </div>
@@ -97,21 +132,16 @@ function ReviewPanel({ job }) {
             <div className="icon">💡</div>
             <p>
               Approving releases{" "}
-              <strong>${job.amount?.toLocaleString()}</strong> from escrow to
-              the freelancer's wallet instantly. Rejecting refunds you.
-              Requesting a revision keeps funds locked and the freelancer must
-              resubmit.
+              <strong>${job.amount?.toLocaleString()}</strong> from escrow
+              instantly. Rejecting refunds you. Requesting a revision keeps
+              funds locked.
             </p>
           </div>
         </div>
       </div>
 
       {/* Revision modal */}
-      <Modal
-        open={redoOpen}
-        onClose={() => setRedoOpen(false)}
-        title="Request Revision"
-      >
+      <Modal open={redoOpen} onClose={() => setRedoOpen(false)} title="Request Revision">
         <div className="info-box amber" style={{ marginBottom: "1.2rem" }}>
           <div className="icon">🔄</div>
           <p>
@@ -120,7 +150,6 @@ function ReviewPanel({ job }) {
             submission is approved or rejected.
           </p>
         </div>
-
         <div className="form-group">
           <label className="form-label">Describe what needs to be revised</label>
           <textarea
@@ -131,7 +160,6 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRedoNote(e.target.value)}
           />
         </div>
-
         <div className="form-group">
           <label className="form-label">Extended Deadline (days from now)</label>
           <input
@@ -142,7 +170,6 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRedoDays(e.target.value)}
           />
         </div>
-
         <div style={{ display: "flex", gap: "10px" }}>
           <Button variant="outline" onClick={() => setRedoOpen(false)} style={{ flex: 1 }}>
             Cancel
@@ -150,10 +177,7 @@ function ReviewPanel({ job }) {
           <Button
             variant="amber"
             style={{ flex: 2 }}
-            onClick={() => {
-              requestRedo(job.id, redoNote, redoDays);
-              setRedoOpen(false);
-            }}
+            onClick={() => { requestRedo(job.id, redoNote, redoDays); setRedoOpen(false); }}
           >
             🔄 Send Revision Request
           </Button>
@@ -161,21 +185,15 @@ function ReviewPanel({ job }) {
       </Modal>
 
       {/* Reject modal */}
-      <Modal
-        open={rejectOpen}
-        onClose={() => setRejectOpen(false)}
-        title="Reject Job"
-      >
+      <Modal open={rejectOpen} onClose={() => setRejectOpen(false)} title="Reject Job">
         <div className="info-box red" style={{ marginBottom: "1.2rem" }}>
           <div className="icon">⛔</div>
           <p>
-            Rejecting the job will{" "}
-            <strong>refund the full escrow amount to your wallet</strong>. The
-            freelancer will not be paid. This action cannot be undone — use
-            only if the work is completely unacceptable.
+            Rejecting will <strong>refund the full escrow amount to your
+            wallet</strong>. The freelancer will not be paid. This cannot be
+            undone.
           </p>
         </div>
-
         <div className="form-group">
           <label className="form-label">Reason for Rejection</label>
           <textarea
@@ -186,7 +204,6 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRejectNote(e.target.value)}
           />
         </div>
-
         <div style={{ display: "flex", gap: "10px" }}>
           <Button variant="outline" onClick={() => setRejectOpen(false)} style={{ flex: 2 }}>
             Go Back
@@ -194,10 +211,7 @@ function ReviewPanel({ job }) {
           <Button
             variant="danger"
             style={{ flex: 1 }}
-            onClick={() => {
-              rejectJob(job.id);
-              setRejectOpen(false);
-            }}
+            onClick={() => { rejectJob(job.id); setRejectOpen(false); }}
           >
             Reject &amp; Refund
           </Button>
