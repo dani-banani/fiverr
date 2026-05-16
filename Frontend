@@ -28,112 +28,38 @@
     --font-mono: 'DM Mono', monospace;
   }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
 
-  /* NAV */
   nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
-    background: rgba(12,14,20,0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(12,14,20,0.85); backdrop-filter: blur(12px);
   }
 
   .logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display); font-size: 1.5rem; letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--accent2), var(--teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
 
-  .nav-center {
-    display: flex;
-    gap: 4px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 4px;
-  }
+  .nav-center { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px; }
+  .role-btn { padding: 6px 20px; border-radius: 999px; border: none; background: transparent; color: var(--muted); font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .role-btn.active { background: var(--accent); color: #fff; }
 
-  .role-btn {
-    padding: 6px 20px;
-    border-radius: 999px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .role-btn.active {
-    background: var(--accent);
-    color: #fff;
-  }
+  .nav-user { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--muted); }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; background: linear-gradient(135deg, var(--accent), var(--teal)); color: #fff; cursor: pointer; }
 
-  .nav-user {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: var(--muted);
-  }
-  .avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 600;
-    background: linear-gradient(135deg, var(--accent), var(--teal));
-    color: #fff;
-    cursor: pointer;
-  }
-
-  /* LAYOUT */
   .view { display: none; }
   .view.active { display: block; }
 
-  .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 2rem 4rem;
-  }
+  .page { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 4rem; }
 
-  /* HEADINGS */
-  h1.page-title {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-  }
+  h1.page-title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
   .page-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
 
-  /* STATS ROW */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 2rem;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    padding: 1.2rem 1.4rem;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); padding: 1.2rem 1.4rem; }
   .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
   .stat-val { font-size: 1.6rem; font-weight: 700; font-family: var(--font-mono); }
   .stat-val.accent { color: var(--accent2); }
@@ -141,441 +67,155 @@
   .stat-val.amber { color: var(--amber); }
   .stat-val.green { color: var(--green); }
 
-  /* GRID LAYOUT */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 20px;
-    align-items: start;
-  }
+  .two-col { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
 
-  /* SECTION */
-  .section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  .section-head h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-  .badge {
-    font-size: 0.72rem;
-    font-family: var(--font-mono);
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-weight: 500;
-  }
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .section-head h2 { font-size: 1rem; font-weight: 600; letter-spacing: 0.01em; }
+
+  .badge { font-size: 0.72rem; font-family: var(--font-mono); padding: 3px 10px; border-radius: 999px; font-weight: 500; }
   .badge-pending { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
   .badge-locked { background: rgba(124,109,250,0.15); color: var(--accent2); border: 1px solid rgba(124,109,250,0.3); }
   .badge-active { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
   .badge-completed { background: rgba(45,212,191,0.15); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
-  .badge-new { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .badge-review { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .badge-redo { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
 
-  /* JOB CARDS */
-  .job-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    padding: 1.3rem 1.5rem;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-  }
+  .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); padding: 1.3rem 1.5rem; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; }
   .job-card:hover { border-color: var(--border2); background: var(--surface2); }
   .job-card.selected { border-color: var(--accent); }
 
-  .job-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-  }
+  .job-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
   .job-title { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
   .job-meta { font-size: 0.8rem; color: var(--muted); }
-  .job-pay {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--teal);
-    text-align: right;
-    white-space: nowrap;
-  }
+  .job-pay { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 500; color: var(--teal); text-align: right; white-space: nowrap; }
   .job-pay small { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; }
 
-  .job-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .tag {
-    font-size: 0.72rem;
-    padding: 3px 10px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
-  }
+  .job-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag { font-size: 0.72rem; padding: 3px 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
 
-  .applicants-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
+  .applicants-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
   .mini-avatars { display: flex; }
-  .mini-avatar {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--teal));
-    border: 2px solid var(--surface);
-    margin-left: -6px;
-    font-size: 0.6rem;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 600;
-  }
+  .mini-avatar { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--teal)); border: 2px solid var(--surface); margin-left: -6px; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; }
   .mini-avatars .mini-avatar:first-child { margin-left: 0; }
-
   .applicant-count { font-size: 0.8rem; color: var(--muted); }
 
-  /* ESCROW PANEL */
-  .panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    overflow: hidden;
-  }
-  .panel-head {
-    padding: 1.2rem 1.4rem;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); overflow: hidden; }
+  .panel-head { padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .panel-head h3 { font-size: 0.9rem; font-weight: 600; }
   .panel-body { padding: 1.2rem 1.4rem; }
 
-  .escrow-amount {
-    text-align: center;
-    padding: 1.5rem 0 1rem;
-  }
+  .escrow-amount { text-align: center; padding: 1.5rem 0 1rem; }
   .escrow-amount .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-  .escrow-amount .value {
-    font-family: var(--font-mono);
-    font-size: 2.5rem;
-    font-weight: 500;
-    color: var(--accent2);
-  }
+  .escrow-amount .value { font-family: var(--font-mono); font-size: 2.5rem; font-weight: 500; color: var(--accent2); }
   .escrow-amount .sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
 
-  .escrow-timeline {
-    margin: 1.2rem 0;
-  }
-  .timeline-step {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
-    position: relative;
-  }
-  .timeline-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 11px;
-    top: 24px;
-    width: 1px;
-    height: calc(100% - 8px);
-    background: var(--border);
-  }
-  .timeline-dot {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem;
-    z-index: 1;
-  }
+  .escrow-timeline { margin: 1.2rem 0; }
+  .timeline-step { display: flex; gap: 12px; margin-bottom: 16px; position: relative; }
+  .timeline-step:not(:last-child)::after { content: ''; position: absolute; left: 11px; top: 24px; width: 1px; height: calc(100% - 8px); background: var(--border); }
+  .timeline-dot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; z-index: 1; }
   .t-done { background: rgba(52,211,153,0.2); border: 1px solid var(--green); color: var(--green); }
   .t-active { background: rgba(124,109,250,0.2); border: 1px solid var(--accent); color: var(--accent2); }
   .t-pending { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+  .t-warn { background: rgba(248,113,113,0.2); border: 1px solid var(--red); color: var(--red); }
 
   .timeline-info { padding-top: 2px; }
   .timeline-info .tl { font-size: 0.85rem; font-weight: 500; }
   .timeline-info .ts { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 
-  /* APPLICANT LIST */
-  .applicant-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .applicant-item:last-child { border-bottom: none; }
-  .applicant-item:hover { background: var(--surface2); margin: 0 -1.4rem; padding: 12px 1.4rem; border-radius: 8px; }
-
-  .app-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; font-weight: 600;
-    flex-shrink: 0;
-    color: #fff;
-  }
-
-  .app-info { flex: 1; min-width: 0; }
-  .app-name { font-size: 0.9rem; font-weight: 600; }
-  .app-role { font-size: 0.75rem; color: var(--muted); }
-  .app-rate { font-family: var(--font-mono); font-size: 0.85rem; color: var(--teal); }
-
-  /* BUTTONS */
-  .btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
-  .btn-primary:hover { background: #6c5de8; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border2);
-  }
-  .btn-outline:hover { background: var(--surface2); }
-  .btn-teal {
-    background: rgba(45,212,191,0.15);
-    color: var(--teal);
-    border: 1px solid rgba(45,212,191,0.3);
-  }
-  .btn-teal:hover { background: rgba(45,212,191,0.25); }
-  .btn-danger {
-    background: rgba(248,113,113,0.15);
-    color: var(--red);
-    border: 1px solid rgba(248,113,113,0.3);
-  }
-  .btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
-  .btn-full { width: 100%; justify-content: center; margin-bottom: 8px; }
-
-  /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 20px;
-    width: 520px;
-    max-width: 95vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: slideUp 0.25s ease;
-  }
-  @keyframes slideUp {
-    from { transform: translateY(24px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  .modal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.4rem 1.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .modal-head h2 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; }
-  .close-btn { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; }
-  .modal-body { padding: 1.4rem 1.6rem; }
-
-  /* FORM */
-  .form-group { margin-bottom: 1.2rem; }
-  .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
-  .form-textarea { resize: vertical; min-height: 80px; }
-  .form-select { appearance: none; cursor: pointer; }
-
-  .amount-input-wrap {
-    position: relative;
-  }
-  .amount-input-wrap .currency {
-    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    font-family: var(--font-mono);
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-  .amount-input-wrap .form-input { padding-left: 40px; font-family: var(--font-mono); }
-
-  .escrow-info-box {
-    background: rgba(124,109,250,0.08);
-    border: 1px solid rgba(124,109,250,0.2);
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 1.2rem;
-    display: flex;
-    gap: 10px;
-  }
-  .escrow-info-box .icon { font-size: 1.1rem; flex-shrink: 0; padding-top: 2px; }
-  .escrow-info-box p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-  .escrow-info-box strong { color: var(--accent2); }
-
-  /* BLOCKCHAIN LOCK VISUAL */
-  .chain-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 1rem 0;
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-family: var(--font-mono);
-  }
-  .chain-block {
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 0.7rem;
-    color: var(--accent2);
-  }
+  .chain-visual { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 1rem 0; font-size: 0.75rem; color: var(--muted); font-family: var(--font-mono); }
+  .chain-block { background: var(--surface2); border: 1px solid var(--border2); border-radius: 6px; padding: 6px 10px; font-size: 0.7rem; color: var(--accent2); }
   .chain-arrow { color: var(--muted); }
 
-  /* RELEASE TIMER */
-  .timer-display {
-    background: rgba(251,191,36,0.08);
-    border: 1px solid rgba(251,191,36,0.2);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    margin: 1rem 0;
-  }
+  .timer-display { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); border-radius: 12px; padding: 1rem; text-align: center; margin: 1rem 0; }
   .timer-display .timer-val { font-family: var(--font-mono); font-size: 1.6rem; color: var(--amber); font-weight: 500; }
   .timer-display .timer-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
 
-  /* PROGRESS BAR */
   .progress-wrap { margin: 8px 0; }
   .progress-bg { background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--teal)); transition: width 0.4s; }
   .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
 
-  /* FREELANCER VIEW */
-  .job-listing-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    padding: 1.4rem 1.6rem;
-    margin-bottom: 12px;
-    transition: border-color 0.2s;
-  }
+  .job-listing-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); padding: 1.4rem 1.6rem; margin-bottom: 12px; transition: border-color 0.2s; }
   .job-listing-card:hover { border-color: var(--border2); }
 
-  .jl-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  .jl-company {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-bottom: 4px;
-    display: flex; align-items: center; gap: 6px;
-  }
+  .jl-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .jl-company { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
   .verified-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
   .jl-pay { text-align: right; }
   .jl-pay .amount { font-family: var(--font-mono); font-size: 1.3rem; color: var(--teal); font-weight: 500; }
-  .jl-pay .locked-badge {
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: rgba(124,109,250,0.15);
-    color: var(--accent2);
-    border: 1px solid rgba(124,109,250,0.25);
-    margin-top: 4px;
-    display: inline-block;
-  }
+  .jl-pay .locked-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: rgba(124,109,250,0.15); color: var(--accent2); border: 1px solid rgba(124,109,250,0.25); margin-top: 4px; display: inline-block; }
 
   .jl-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
-  .jl-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
+  .jl-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
   .jl-details { display: flex; gap: 16px; }
   .jl-detail { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 5px; }
   .detail-icon { font-size: 0.9rem; }
 
-  /* APPLY STATUS */
-  .my-applications {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    overflow: hidden;
-  }
-  .app-row {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.4rem;
-    border-bottom: 1px solid var(--border);
-    gap: 12px;
-  }
+  .my-applications { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); overflow: hidden; }
+  .app-row { display: flex; align-items: center; padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); gap: 12px; }
   .app-row:last-child { border-bottom: none; }
   .app-row-info { flex: 1; }
   .app-row-title { font-size: 0.9rem; font-weight: 500; }
   .app-row-company { font-size: 0.78rem; color: var(--muted); }
   .app-row-pay { font-family: var(--font-mono); font-size: 0.9rem; color: var(--teal); margin-right: 12px; }
 
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 12px;
-    padding: 12px 18px;
-    font-size: 0.875rem;
-    display: flex; align-items: center; gap: 10px;
-    z-index: 300;
-    animation: slideUp 0.3s ease;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    max-width: 360px;
-  }
+  .btn { padding: 10px 20px; border-radius: 10px; border: none; font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #6c5de8; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+  .btn-outline:hover { background: var(--surface2); }
+  .btn-teal { background: rgba(45,212,191,0.15); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+  .btn-teal:hover { background: rgba(45,212,191,0.25); }
+  .btn-danger { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .btn-danger:hover { background: rgba(248,113,113,0.25); }
+  .btn-amber { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+  .btn-amber:hover { background: rgba(251,191,36,0.25); }
+  .btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
+  .btn-full { width: 100%; justify-content: center; margin-bottom: 8px; }
+
+  /* MODALS */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 20px; width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; animation: slideUp 0.25s ease; }
+  @keyframes slideUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1.6rem; border-bottom: 1px solid var(--border); }
+  .modal-head h2 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; }
+  .close-btn { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+  .modal-body { padding: 1.4rem 1.6rem; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .form-input, .form-select, .form-textarea { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 10px; padding: 10px 14px; color: var(--text); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-select { appearance: none; cursor: pointer; }
+
+  .amount-input-wrap { position: relative; }
+  .amount-input-wrap .currency { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); color: var(--muted); font-size: 0.9rem; }
+  .amount-input-wrap .form-input { padding-left: 40px; font-family: var(--font-mono); }
+
+  .info-box { border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.2rem; display: flex; gap: 10px; }
+  .info-box.purple { background: rgba(124,109,250,0.08); border: 1px solid rgba(124,109,250,0.2); }
+  .info-box.amber { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); }
+  .info-box.red { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); }
+  .info-box.green { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); }
+  .info-box .icon { font-size: 1.1rem; flex-shrink: 0; padding-top: 2px; }
+  .info-box p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .info-box strong { color: var(--accent2); }
+  .info-box.amber strong { color: var(--amber); }
+  .info-box.red strong { color: var(--red); }
+  .info-box.green strong { color: var(--green); }
+
+  /* REVIEW PANEL for client */
+  .review-submission { background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
+  .review-submission-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+  .review-submission-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+  .review-actions { display: flex; gap: 8px; }
+
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; padding: 12px 18px; font-size: 0.875rem; display: flex; align-items: center; gap: 10px; z-index: 300; animation: slideUp 0.3s ease; box-shadow: 0 8px 32px rgba(0,0,0,0.4); max-width: 360px; }
   .toast.hidden { display: none; }
   .toast-icon { font-size: 1.2rem; }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .two-col { grid-template-columns: 1fr; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
@@ -586,12 +226,11 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">⬡ ChainWork</div>
   <div class="nav-center">
-    <button class="role-btn active" onclick="switchRole('client')">Client</button>
-    <button class="role-btn" onclick="switchRole('freelancer')">Freelancer</button>
+    <button class="role-btn active" onclick="switchRole('client', event)">Client</button>
+    <button class="role-btn" onclick="switchRole('freelancer', event)">Freelancer</button>
   </div>
   <div class="nav-user">
     <span id="nav-username">Alex Chen</span>
@@ -605,39 +244,25 @@
   <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2rem;">
     <div>
       <h1 class="page-title">Client Dashboard</h1>
-      <p class="page-sub">Manage jobs, review applicants, and track escrow payments on-chain.</p>
+      <p class="page-sub">Manage jobs, review submitted work, and release or dispute payments.</p>
     </div>
     <button class="btn btn-primary" onclick="openPostJob()">+ Post New Job</button>
   </div>
 
   <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Active Jobs</div>
-      <div class="stat-val accent">4</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Total Escrow Locked</div>
-      <div class="stat-val teal">$8,450</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Pending Applicants</div>
-      <div class="stat-val amber">12</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Completed</div>
-      <div class="stat-val green">9</div>
-    </div>
+    <div class="stat-card"><div class="stat-label">Active Jobs</div><div class="stat-val accent">4</div></div>
+    <div class="stat-card"><div class="stat-label">Total Escrow Locked</div><div class="stat-val teal">$8,450</div></div>
+    <div class="stat-card"><div class="stat-label">Awaiting Review</div><div class="stat-val amber" id="review-count">1</div></div>
+    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-val green">9</div></div>
   </div>
 
   <div class="two-col">
-    <!-- LEFT: Job List -->
     <div>
       <div class="section-head">
         <h2>Your Posted Jobs</h2>
         <span class="badge badge-pending">4 Active</span>
       </div>
 
-      <!-- Job Cards -->
       <div class="job-card selected" onclick="selectJob(this, 0)">
         <div class="job-card-top">
           <div>
@@ -649,21 +274,13 @@
             <div style="text-align:right;margin-top:6px;"><span class="badge badge-locked">Locked</span></div>
           </div>
         </div>
-        <div class="job-tags">
-          <span class="tag">Figma</span>
-          <span class="tag">Web3 UX</span>
-          <span class="tag">React</span>
-        </div>
+        <div class="job-tags"><span class="tag">Figma</span><span class="tag">Web3 UX</span><span class="tag">React</span></div>
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-avatars">
-              <div class="mini-avatar">JL</div>
-              <div class="mini-avatar">MR</div>
-              <div class="mini-avatar">AK</div>
-            </div>
+            <div class="mini-avatars"><div class="mini-avatar">JL</div><div class="mini-avatar">MR</div><div class="mini-avatar">AK</div></div>
             <span class="applicant-count">5 applicants · <span style="color:var(--amber)">3 pending review</span></span>
           </div>
-          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-pending">Hiring</span>
         </div>
       </div>
 
@@ -671,26 +288,20 @@
         <div class="job-card-top">
           <div>
             <div class="job-title">Smart Contract Audit — ERC-20</div>
-            <div class="job-meta">Posted 5 days ago · Ends in 9 days</div>
+            <div class="job-meta">Posted 5 days ago · Submitted for review</div>
           </div>
           <div>
             <div class="job-pay">$3,200<br><small>🔒 Escrow locked</small></div>
-            <div style="text-align:right;margin-top:6px;"><span class="badge badge-active">In Progress</span></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-review">Needs Review</span></div>
           </div>
         </div>
-        <div class="job-tags">
-          <span class="tag">Solidity</span>
-          <span class="tag">Security</span>
-          <span class="tag">Ethereum</span>
-        </div>
+        <div class="job-tags"><span class="tag">Solidity</span><span class="tag">Security</span><span class="tag">Ethereum</span></div>
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-avatars">
-              <div class="mini-avatar">SK</div>
-            </div>
-            <span class="applicant-count">1 hired · <span style="color:var(--green)">Work in progress</span></span>
+            <div class="mini-avatars"><div class="mini-avatar">SK</div></div>
+            <span class="applicant-count">1 hired · <span style="color:var(--red)">Work submitted — review required</span></span>
           </div>
-          <span class="badge badge-active">Active</span>
+          <span class="badge badge-review">Review</span>
         </div>
       </div>
 
@@ -702,23 +313,16 @@
           </div>
           <div>
             <div class="job-pay">$1,800<br><small>🔒 Escrow locked</small></div>
-            <div style="text-align:right;margin-top:6px;"><span class="badge badge-pending">Pending</span></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-active">In Progress</span></div>
           </div>
         </div>
-        <div class="job-tags">
-          <span class="tag">Node.js</span>
-          <span class="tag">Web3.js</span>
-          <span class="tag">PostgreSQL</span>
-        </div>
+        <div class="job-tags"><span class="tag">Node.js</span><span class="tag">Web3.js</span><span class="tag">PostgreSQL</span></div>
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-avatars">
-              <div class="mini-avatar">PM</div>
-              <div class="mini-avatar">CW</div>
-            </div>
-            <span class="applicant-count">2 applicants · <span style="color:var(--amber)">2 pending review</span></span>
+            <div class="mini-avatars"><div class="mini-avatar">PM</div></div>
+            <span class="applicant-count">1 hired · <span style="color:var(--green)">Work in progress</span></span>
           </div>
-          <span class="badge badge-pending">Pending</span>
+          <span class="badge badge-active">Active</span>
         </div>
       </div>
 
@@ -726,23 +330,17 @@
         <div class="job-card-top">
           <div>
             <div class="job-title">NFT Marketplace Frontend</div>
-            <div class="job-meta">Posted 3 days ago · Ends in 11 days</div>
+            <div class="job-meta">Posted 3 days ago · Completed</div>
           </div>
           <div>
-            <div class="job-pay">$1,050<br><small>🔒 Escrow locked</small></div>
+            <div class="job-pay">$1,050<br><small>✅ Released</small></div>
             <div style="text-align:right;margin-top:6px;"><span class="badge badge-completed">Completed</span></div>
           </div>
         </div>
-        <div class="job-tags">
-          <span class="tag">Next.js</span>
-          <span class="tag">IPFS</span>
-          <span class="tag">TailwindCSS</span>
-        </div>
+        <div class="job-tags"><span class="tag">Next.js</span><span class="tag">IPFS</span><span class="tag">TailwindCSS</span></div>
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-avatars">
-              <div class="mini-avatar">LK</div>
-            </div>
+            <div class="mini-avatars"><div class="mini-avatar">LK</div></div>
             <span class="applicant-count">Completed · <span style="color:var(--teal)">Payment released</span></span>
           </div>
           <span class="badge badge-completed">Done</span>
@@ -750,13 +348,13 @@
       </div>
     </div>
 
-    <!-- RIGHT: Detail Panel -->
-    <div>
+    <!-- RIGHT PANEL -->
+    <div id="client-right-panel">
       <!-- Escrow Panel -->
-      <div class="panel" style="margin-bottom:16px;">
+      <div class="panel" style="margin-bottom:16px;" id="escrow-panel">
         <div class="panel-head">
           <h3>⬡ Escrow Status</h3>
-          <span class="badge badge-locked">Blockchain Locked</span>
+          <span class="badge badge-locked" id="escrow-status-badge">Blockchain Locked</span>
         </div>
         <div class="panel-body">
           <div class="escrow-amount">
@@ -764,7 +362,6 @@
             <div class="value" id="escrow-val">$2,400.00</div>
             <div class="sub" id="escrow-sub">DeFi Dashboard UI Design</div>
           </div>
-
           <div class="chain-visual">
             <div class="chain-block">0x4f2a...</div>
             <span class="chain-arrow">→</span>
@@ -772,12 +369,10 @@
             <span class="chain-arrow">→</span>
             <div class="chain-block">0x8e1c...</div>
           </div>
-
           <div class="timer-display">
             <div class="timer-val" id="countdown-display">12d 04h 33m</div>
-            <div class="timer-label">Auto-release countdown</div>
+            <div class="timer-label" id="countdown-label">Auto-release countdown</div>
           </div>
-
           <div class="progress-wrap">
             <div class="progress-bg"><div class="progress-fill" id="escrow-progress" style="width:15%"></div></div>
             <div class="progress-label"><span>Job started</span><span>Auto-release</span></div>
@@ -785,59 +380,35 @@
         </div>
       </div>
 
-      <!-- Applicants Panel -->
-      <div class="panel">
-        <div class="panel-head">
-          <h3>Applicants</h3>
-          <span class="badge badge-pending" id="applicant-badge">5 total</span>
+      <!-- Review Panel (hidden unless job has submission) -->
+      <div class="panel" id="review-panel" style="display:none;margin-bottom:16px;border-color:rgba(248,113,113,0.3);">
+        <div class="panel-head" style="border-color:rgba(248,113,113,0.2);">
+          <h3>📋 Work Submitted for Review</h3>
+          <span class="badge badge-review">Action Required</span>
         </div>
-        <div class="panel-body" id="applicants-list">
-          <div class="applicant-item">
-            <div class="app-avatar" style="background:linear-gradient(135deg,#7c6dfa,#a78bfa)">JL</div>
-            <div class="app-info">
-              <div class="app-name">Jamie Liu</div>
-              <div class="app-role">UI/UX Designer · ⭐ 4.9 (47 reviews)</div>
-            </div>
-            <div class="app-rate">$2,100</div>
-            <div>
-              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Jamie Liu')">Hire</button>
+        <div class="panel-body">
+          <div class="info-box red">
+            <div class="icon">⚠️</div>
+            <p>The freelancer has submitted their work. Please review and take action. <strong>You have 3 days</strong> before auto-release kicks in.</p>
+          </div>
+          <div class="review-submission">
+            <div class="review-submission-title">Audit Report v1.0</div>
+            <div class="review-submission-desc">Comprehensive ERC-20 security audit covering reentrancy, overflow, and access control. Found 2 medium-severity issues with mitigation steps documented. Full report and annotated code attached.</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:10px;">📎 audit-report-erc20.pdf · Submitted May 15, 2026</div>
+            <div class="review-actions">
+              <button class="btn btn-teal btn-sm" onclick="approveWork()">✅ Approve & Release Payment</button>
+              <button class="btn btn-amber btn-sm" onclick="requestRedo()">🔄 Request Revision</button>
+              <button class="btn btn-danger btn-sm" onclick="rejectWork()">✗ Reject Job</button>
             </div>
           </div>
-          <div class="applicant-item">
-            <div class="app-avatar" style="background:linear-gradient(135deg,#2dd4bf,#34d399)">MR</div>
-            <div class="app-info">
-              <div class="app-name">Maya Rodriguez</div>
-              <div class="app-role">Product Designer · ⭐ 4.7 (31 reviews)</div>
-            </div>
-            <div class="app-rate">$2,400</div>
-            <div>
-              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Maya Rodriguez')">Hire</button>
-            </div>
-          </div>
-          <div class="applicant-item">
-            <div class="app-avatar" style="background:linear-gradient(135deg,#fbbf24,#f87171)">AK</div>
-            <div class="app-info">
-              <div class="app-name">Arjun Kumar</div>
-              <div class="app-role">Frontend Dev · ⭐ 4.8 (62 reviews)</div>
-            </div>
-            <div class="app-rate">$2,200</div>
-            <div>
-              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Arjun Kumar')">Hire</button>
-            </div>
-          </div>
-          <div class="applicant-item" style="opacity:0.5">
-            <div class="app-avatar" style="background:linear-gradient(135deg,#60a5fa,#7c6dfa)">TP</div>
-            <div class="app-info">
-              <div class="app-name">Tom Park</div>
-              <div class="app-role">Web3 Designer · ⭐ 4.5 (18 reviews)</div>
-            </div>
-            <div class="app-rate">$1,900</div>
-            <div>
-              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Tom Park')">Hire</button>
-            </div>
+          <div class="info-box purple" style="margin-top:12px;margin-bottom:0;">
+            <div class="icon">💡</div>
+            <p>Approving releases <strong>$3,200</strong> from escrow to the freelancer's wallet instantly. Rejecting refunds you. Requesting a revision keeps funds locked and the freelancer must resubmit.</p>
           </div>
         </div>
       </div>
+
+
     </div>
   </div>
 </div>
@@ -848,40 +419,49 @@
 <div class="page">
   <div style="margin-bottom:2rem;">
     <h1 class="page-title">Find Work</h1>
-    <p class="page-sub">Browse blockchain-verified jobs. Payments are escrow-protected — you get paid, guaranteed.</p>
+    <p class="page-sub">Browse jobs. Apply directly — funds are already locked in escrow so you get paid, guaranteed.</p>
   </div>
 
   <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Active Applications</div>
-      <div class="stat-val accent">3</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Earnings in Escrow</div>
-      <div class="stat-val teal">$1,800</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Jobs Available</div>
-      <div class="stat-val amber">24</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Total Earned</div>
-      <div class="stat-val green">$14,220</div>
-    </div>
+    <div class="stat-card"><div class="stat-label">Active Applications</div><div class="stat-val accent" id="fl-app-count">3</div></div>
+    <div class="stat-card"><div class="stat-label">Earnings in Escrow</div><div class="stat-val teal">$1,800</div></div>
+    <div class="stat-card"><div class="stat-label">Jobs Available</div><div class="stat-val amber">24</div></div>
+    <div class="stat-card"><div class="stat-label">Total Earned</div><div class="stat-val green">$14,220</div></div>
   </div>
 
   <div class="two-col">
-    <!-- LEFT: Job Listings -->
     <div>
       <div class="section-head">
         <h2>Open Jobs</h2>
-        <div style="display:flex;gap:8px;">
-          <select class="form-select" style="width:auto;padding:6px 12px;font-size:0.8rem;">
-            <option>All Skills</option>
-            <option>Design</option>
-            <option>Development</option>
-            <option>Smart Contracts</option>
-          </select>
+        <select class="form-select" style="width:auto;padding:6px 12px;font-size:0.8rem;">
+          <option>All Skills</option>
+          <option>Design</option>
+          <option>Development</option>
+          <option>Smart Contracts</option>
+        </select>
+      </div>
+
+      <!-- How it works strip -->
+      <div style="display:flex;gap:0;margin-bottom:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+        <div style="flex:1;padding:10px 14px;border-right:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-bottom:2px;">Step 1</div>
+          <div style="font-size:0.8rem;font-weight:600;">Apply</div>
+        </div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-bottom:2px;">Step 2</div>
+          <div style="font-size:0.8rem;font-weight:600;">Get Hired</div>
+        </div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-bottom:2px;">Step 3</div>
+          <div style="font-size:0.8rem;font-weight:600;">Do the Work</div>
+        </div>
+        <div style="flex:1;padding:10px 14px;border-right:1px solid var(--border);text-align:center;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-bottom:2px;">Step 4</div>
+          <div style="font-size:0.8rem;font-weight:600;">Submit</div>
+        </div>
+        <div style="flex:1;padding:10px 14px;text-align:center;">
+          <div style="font-size:0.7rem;color:var(--muted);margin-bottom:2px;">Step 5</div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--teal);">Get Paid</div>
         </div>
       </div>
 
@@ -897,12 +477,7 @@
           </div>
         </div>
         <div class="jl-desc">Design a comprehensive DeFi dashboard with wallet integration, portfolio tracking, and swap interfaces. Must be responsive and follow Web3 UX best practices.</div>
-        <div class="job-tags">
-          <span class="tag">Figma</span>
-          <span class="tag">Web3 UX</span>
-          <span class="tag">React</span>
-          <span class="tag">DeFi</span>
-        </div>
+        <div class="job-tags"><span class="tag">Figma</span><span class="tag">Web3 UX</span><span class="tag">React</span><span class="tag">DeFi</span></div>
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 14 days</div>
@@ -925,11 +500,7 @@
           </div>
         </div>
         <div class="jl-desc">Conduct a comprehensive security audit of our ERC-20 token contract. Provide a detailed report with vulnerability findings and mitigation strategies.</div>
-        <div class="job-tags">
-          <span class="tag">Solidity</span>
-          <span class="tag">Security</span>
-          <span class="tag">Ethereum</span>
-        </div>
+        <div class="job-tags"><span class="tag">Solidity</span><span class="tag">Security</span><span class="tag">Ethereum</span></div>
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 10 days</div>
@@ -952,12 +523,7 @@
           </div>
         </div>
         <div class="jl-desc">Build REST and GraphQL APIs for our blockchain indexer. Integration with IPFS for metadata storage, real-time WebSocket for on-chain events.</div>
-        <div class="job-tags">
-          <span class="tag">Node.js</span>
-          <span class="tag">Web3.js</span>
-          <span class="tag">IPFS</span>
-          <span class="tag">GraphQL</span>
-        </div>
+        <div class="job-tags"><span class="tag">Node.js</span><span class="tag">Web3.js</span><span class="tag">IPFS</span><span class="tag">GraphQL</span></div>
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 21 days</div>
@@ -969,16 +535,17 @@
       </div>
     </div>
 
-    <!-- RIGHT: My Applications -->
+    <!-- RIGHT: My Applications + Payment Tracker -->
     <div>
-      <div class="panel">
+      <div class="panel" style="margin-bottom:16px;">
         <div class="panel-head">
           <h3>My Applications</h3>
-          <span class="badge badge-pending">3 active</span>
+          <span class="badge badge-pending" id="fl-badge">3 active</span>
         </div>
-        <div class="my-applications" id="my-applications-list">
-          <div class="app-row">
-            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(124,109,250,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--accent2);">💼</div>
+        <div id="my-applications-list">
+          <!-- Hired job with submit button -->
+          <div class="app-row" id="nft-app-row">
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(52,211,153,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--green);">💼</div>
             <div class="app-row-info">
               <div class="app-row-title">NFT Marketplace Design</div>
               <div class="app-row-company">PixelVault Studios</div>
@@ -986,8 +553,13 @@
             <div class="app-row-pay">$950</div>
             <span class="badge badge-active">Hired</span>
           </div>
+          <!-- Submit work button shown when hired -->
+          <div id="submit-work-bar" style="padding:8px 1.4rem;background:rgba(52,211,153,0.05);border-bottom:1px solid var(--border);">
+            <button class="btn btn-teal btn-sm btn-full" onclick="openSubmitWork('NFT Marketplace Design', '$950')">📤 Submit Completed Work</button>
+          </div>
+
           <div class="app-row">
-            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
             <div class="app-row-info">
               <div class="app-row-title">DeFi Dashboard UI Design</div>
               <div class="app-row-company">TechVault Labs</div>
@@ -996,7 +568,7 @@
             <span class="badge badge-pending">Pending</span>
           </div>
           <div class="app-row">
-            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(45,212,191,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--teal);">✓</div>
+            <div style="width:36px;height:36px;border-radius:8px;background:rgba(45,212,191,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--teal);">✓</div>
             <div class="app-row-info">
               <div class="app-row-title">Token Branding Kit</div>
               <div class="app-row-company">MoonRise Protocol</div>
@@ -1007,58 +579,42 @@
         </div>
       </div>
 
-      <!-- Escrow Tracker for Freelancer -->
-      <div class="panel" style="margin-top:16px;">
+      <!-- Payment Tracker -->
+      <div class="panel">
         <div class="panel-head">
           <h3>💰 Payment Tracker</h3>
         </div>
         <div class="panel-body">
           <div class="escrow-amount">
             <div class="label">Escrow Balance (You)</div>
-            <div class="value" style="font-size:1.8rem;">$950</div>
-            <div class="sub">NFT Marketplace Design · In Progress</div>
+            <div class="value" style="font-size:1.8rem;" id="fl-escrow-val">$950</div>
+            <div class="sub" id="fl-escrow-sub">NFT Marketplace Design · In Progress</div>
           </div>
-
           <div class="timer-display">
-            <div class="timer-val">08d 16h 12m</div>
-            <div class="timer-label">Estimated release (on completion)</div>
+            <div class="timer-val" id="fl-timer">08d 16h 12m</div>
+            <div class="timer-label" id="fl-timer-label">Deliver before May 24</div>
           </div>
 
-          <div class="escrow-timeline">
+          <div class="escrow-timeline" id="fl-timeline">
             <div class="timeline-step">
               <div class="timeline-dot t-done">✓</div>
-              <div class="timeline-info">
-                <div class="tl">Client funded escrow</div>
-                <div class="ts">May 12 · $950 locked on-chain</div>
-              </div>
+              <div class="timeline-info"><div class="tl">Client funded escrow</div><div class="ts">May 12 · $950 locked on-chain</div></div>
             </div>
             <div class="timeline-step">
               <div class="timeline-dot t-done">✓</div>
-              <div class="timeline-info">
-                <div class="tl">You were selected</div>
-                <div class="ts">May 13 · Work order confirmed</div>
-              </div>
+              <div class="timeline-info"><div class="tl">You were hired</div><div class="ts">May 13 · Funds deducted from client</div></div>
             </div>
             <div class="timeline-step">
               <div class="timeline-dot t-active">⚡</div>
-              <div class="timeline-info">
-                <div class="tl">In progress</div>
-                <div class="ts">Deliver before May 24</div>
-              </div>
+              <div class="timeline-info"><div class="tl">In progress — submit when done</div><div class="ts">Deliver before May 24</div></div>
             </div>
             <div class="timeline-step">
               <div class="timeline-dot t-pending">4</div>
-              <div class="timeline-info">
-                <div class="tl">Client review</div>
-                <div class="ts">Approval or dispute window: 3 days</div>
-              </div>
+              <div class="timeline-info"><div class="tl">Client review</div><div class="ts">Approve, request revision, or reject · 3-day window</div></div>
             </div>
             <div class="timeline-step">
               <div class="timeline-dot t-pending">5</div>
-              <div class="timeline-info">
-                <div class="tl">Payment released to wallet</div>
-                <div class="ts">Automatic on approval</div>
-              </div>
+              <div class="timeline-info"><div class="tl">Payment released to your wallet</div><div class="ts">Automatic on approval</div></div>
             </div>
           </div>
         </div>
@@ -1076,11 +632,10 @@
       <button class="close-btn" onclick="closeModal('post-job-modal')">×</button>
     </div>
     <div class="modal-body">
-      <div class="escrow-info-box">
+      <div class="info-box purple">
         <div class="icon">🔒</div>
-        <p>Your payment will be <strong>locked in a smart contract escrow</strong> once you post. Funds are only released when you approve the work — or auto-released after the deadline. Fully on-chain and trustless.</p>
+        <p>Your payment is <strong>locked in a smart contract escrow</strong> when you post. Funds only release when you approve submitted work — fully on-chain and trustless.</p>
       </div>
-
       <div class="form-group">
         <label class="form-label">Job Title</label>
         <input type="text" class="form-input" placeholder="e.g. DeFi Dashboard UI Design" />
@@ -1093,10 +648,7 @@
         <div class="form-group">
           <label class="form-label">Category</label>
           <select class="form-select">
-            <option>Design</option>
-            <option>Development</option>
-            <option>Smart Contracts</option>
-            <option>Marketing</option>
+            <option>Design</option><option>Development</option><option>Smart Contracts</option><option>Marketing</option>
           </select>
         </div>
         <div class="form-group">
@@ -1111,7 +663,6 @@
           <input type="number" class="form-input" id="payment-input" placeholder="0.00" oninput="updateLockPreview(this.value)" />
         </div>
       </div>
-
       <div class="panel" style="margin-bottom:1.2rem;">
         <div class="panel-body">
           <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Escrow Breakdown</div>
@@ -1136,12 +687,10 @@
           </div>
         </div>
       </div>
-
       <div class="form-group">
         <label class="form-label">Skills Required</label>
         <input type="text" class="form-input" placeholder="e.g. Figma, React, Solidity (comma separated)" />
       </div>
-
       <div style="display:flex;gap:10px;margin-top:0.5rem;">
         <button class="btn btn-outline" style="flex:1;" onclick="closeModal('post-job-modal')">Cancel</button>
         <button class="btn btn-primary" style="flex:2;" onclick="postJob()">🔒 Lock Funds & Post Job</button>
@@ -1163,7 +712,7 @@
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <div>
               <div style="font-weight:600;font-size:0.95rem;" id="apply-job-title">Job Title</div>
-              <div style="font-size:0.8rem;color:var(--muted);margin-top:3px;">Client budget locked in escrow</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:3px;">Payment locked in escrow by client</div>
             </div>
             <div>
               <div style="font-family:var(--font-mono);font-size:1.2rem;color:var(--teal);" id="apply-job-pay">$0</div>
@@ -1172,7 +721,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-group">
         <label class="form-label">Your Proposed Rate</label>
         <div class="amount-input-wrap">
@@ -1194,15 +742,12 @@
           <option>Within 7 days</option>
           <option>Within 14 days</option>
           <option>Within 21 days</option>
-          <option>Custom</option>
         </select>
       </div>
-
-      <div class="escrow-info-box">
+      <div class="info-box green" style="margin-bottom:1.2rem;">
         <div class="icon">💡</div>
-        <p>Payment of <strong id="apply-escrow-amt">$0</strong> is already <strong>locked in escrow</strong> by the client. Once hired and work is approved, funds are released directly to your wallet — no payment risk.</p>
+        <p>Once hired, <strong id="apply-escrow-amt">$0</strong> is deducted from the client and held in escrow on the blockchain. You submit your work when done — client then approves, requests revision, or rejects. <strong>Approval releases funds instantly to your wallet.</strong></p>
       </div>
-
       <div style="display:flex;gap:10px;">
         <button class="btn btn-outline" style="flex:1;" onclick="closeModal('apply-modal')">Cancel</button>
         <button class="btn btn-primary" style="flex:2;" onclick="submitApplication()">Submit Application</button>
@@ -1211,7 +756,101 @@
   </div>
 </div>
 
-<!-- TOAST -->
+<!-- ===================== SUBMIT WORK MODAL ===================== -->
+<div class="modal-overlay" id="submit-work-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Submit Your Work</h2>
+      <button class="close-btn" onclick="closeModal('submit-work-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="panel" style="margin-bottom:1.2rem;">
+        <div class="panel-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-weight:600;font-size:0.95rem;" id="submit-job-title">Job Title</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:3px;">Payment in escrow — released on approval</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:1.2rem;color:var(--teal);" id="submit-job-pay">$0</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box amber">
+        <div class="icon">⚠️</div>
+        <p>Once submitted, the client will review your work. They can <strong>approve</strong> (funds released), <strong>request a revision</strong> (you must resubmit), or <strong>reject</strong> (funds returned to client). Make sure your work is complete before submitting.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Submission Notes</label>
+        <textarea class="form-textarea" style="min-height:100px;" placeholder="Describe what you've delivered, any notes for the client, links to files, etc."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Delivery Link / File URL</label>
+        <input type="text" class="form-input" placeholder="https://drive.google.com/... or GitHub link" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Attach Files (optional)</label>
+        <input type="text" class="form-input" placeholder="Paste public file URL" />
+      </div>
+      <div style="display:flex;gap:10px;margin-top:0.5rem;">
+        <button class="btn btn-outline" style="flex:1;" onclick="closeModal('submit-work-modal')">Cancel</button>
+        <button class="btn btn-teal" style="flex:2;" onclick="confirmSubmitWork()">📤 Submit for Client Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== REQUEST REDO MODAL ===================== -->
+<div class="modal-overlay" id="redo-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Request Revision</h2>
+      <button class="close-btn" onclick="closeModal('redo-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-box amber">
+        <div class="icon">🔄</div>
+        <p>The freelancer will be notified to revise their work. <strong>Funds remain locked in escrow</strong> until the revised submission is approved or rejected.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Describe what needs to be revised</label>
+        <textarea class="form-textarea" style="min-height:120px;" placeholder="Be specific — tell the freelancer exactly what changes are needed..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Extended Deadline (days from now)</label>
+        <input type="number" class="form-input" value="5" min="1" />
+      </div>
+      <div style="display:flex;gap:10px;margin-top:0.5rem;">
+        <button class="btn btn-outline" style="flex:1;" onclick="closeModal('redo-modal')">Cancel</button>
+        <button class="btn btn-amber" style="flex:2;" onclick="confirmRedo()">🔄 Send Revision Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== REJECT MODAL ===================== -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Reject Job</h2>
+      <button class="close-btn" onclick="closeModal('reject-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-box red">
+        <div class="icon">⛔</div>
+        <p>Rejecting the job will <strong>refund the full escrow amount to your wallet</strong>. The freelancer will not be paid. This action cannot be undone — use only if the work is completely unacceptable.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Reason for Rejection</label>
+        <textarea class="form-textarea" style="min-height:100px;" placeholder="Explain why the work is being rejected..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:0.5rem;">
+        <button class="btn btn-outline" style="flex:2;" onclick="closeModal('reject-modal')">Go Back</button>
+        <button class="btn btn-danger" style="flex:1;" onclick="confirmReject()">Reject & Refund</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast hidden" id="toast">
   <span class="toast-icon" id="toast-icon">✅</span>
   <span id="toast-msg">Action completed</span>
@@ -1223,19 +862,18 @@
   let countdownInterval;
 
   const jobs = [
-    { title: 'DeFi Dashboard UI Design', amount: '$2,400', days: 12, progress: 15, applicants: '5 total' },
-    { title: 'Smart Contract Audit — ERC-20', amount: '$3,200', days: 9, progress: 45, applicants: '1 hired' },
-    { title: 'Blockchain Backend API', amount: '$1,800', days: 14, progress: 5, applicants: '2 total' },
-    { title: 'NFT Marketplace Frontend', amount: '$1,050', days: 0, progress: 100, applicants: 'Completed' },
+    { title: 'DeFi Dashboard UI Design', amount: '$2,400', days: 12, progress: 15, applicants: '5 total', status: 'hiring' },
+    { title: 'Smart Contract Audit — ERC-20', amount: '$3,200', days: 3, progress: 60, applicants: '1 hired', status: 'review' },
+    { title: 'Blockchain Backend API', amount: '$1,800', days: 14, progress: 10, applicants: '1 hired', status: 'active' },
+    { title: 'NFT Marketplace Frontend', amount: '$1,050', days: 0, progress: 100, applicants: 'Completed', status: 'done' },
   ];
 
-  function switchRole(role) {
+  function switchRole(role, e) {
     currentRole = role;
     document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+    e.target.classList.add('active');
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-' + role).classList.add('active');
-
     if (role === 'client') {
       document.getElementById('nav-username').textContent = 'Alex Chen';
       document.getElementById('nav-avatar').textContent = 'AC';
@@ -1253,8 +891,17 @@
     document.getElementById('escrow-val').textContent = job.amount;
     document.getElementById('escrow-sub').textContent = job.title;
     document.getElementById('escrow-progress').style.width = job.progress + '%';
-    document.getElementById('applicant-badge').textContent = job.applicants;
     startCountdown(job.days);
+
+    const reviewPanel = document.getElementById('review-panel');
+
+    if (job.status === 'review') {
+      reviewPanel.style.display = 'block';
+      document.getElementById('countdown-label').textContent = '3-day review window remaining';
+    } else {
+      reviewPanel.style.display = 'none';
+      document.getElementById('countdown-label').textContent = 'Auto-release countdown';
+    }
   }
 
   function startCountdown(days) {
@@ -1264,21 +911,16 @@
       const d = Math.floor(totalSecs / 86400);
       const h = Math.floor((totalSecs % 86400) / 3600);
       const m = Math.floor((totalSecs % 3600) / 60);
-      document.getElementById('countdown-display').textContent =
-        (d > 0 ? d + 'd ' : '') + String(h).padStart(2,'0') + 'h ' + String(m).padStart(2,'0') + 'm';
+      const el = document.getElementById('countdown-display');
+      if (el) el.textContent = (d > 0 ? d + 'd ' : '') + String(h).padStart(2,'0') + 'h ' + String(m).padStart(2,'0') + 'm';
       if (totalSecs > 0) totalSecs--;
     }
     update();
     countdownInterval = setInterval(update, 60000);
   }
 
-  function openPostJob() {
-    document.getElementById('post-job-modal').classList.add('open');
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-  }
+  function openPostJob() { document.getElementById('post-job-modal').classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
   function updateLockPreview(val) {
     const v = parseFloat(val) || 0;
@@ -1309,20 +951,78 @@
     const div = document.createElement('div');
     div.className = 'app-row';
     div.innerHTML = `
-      <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
-      <div class="app-row-info">
-        <div class="app-row-title">${title}</div>
-        <div class="app-row-company">New Application</div>
-      </div>
+      <div style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
+      <div class="app-row-info"><div class="app-row-title">${title}</div><div class="app-row-company">New Application</div></div>
       <div class="app-row-pay">${pay}</div>
       <span class="badge badge-pending">Pending</span>
     `;
     list.insertBefore(div, list.firstChild);
+    const cnt = document.getElementById('fl-app-count');
+    cnt.textContent = parseInt(cnt.textContent) + 1;
     showToast('Application submitted! 🎉', '✅');
   }
 
-  function hireApplicant(name) {
-    showToast(`${name} hired! Payment will release on delivery.`, '🤝');
+  function openSubmitWork(title, pay) {
+    document.getElementById('submit-job-title').textContent = title;
+    document.getElementById('submit-job-pay').textContent = pay;
+    document.getElementById('submit-work-modal').classList.add('open');
+  }
+
+  function confirmSubmitWork() {
+    closeModal('submit-work-modal');
+    // Update freelancer tracker
+    document.getElementById('fl-escrow-sub').textContent = 'NFT Marketplace Design · Awaiting client review';
+    document.getElementById('fl-timer-label').textContent = 'Client review window — 3 days';
+    document.getElementById('fl-timer').textContent = '03d 00h 00m';
+    // Update timeline step 3
+    const tl = document.getElementById('fl-timeline');
+    const steps = tl.querySelectorAll('.timeline-step');
+    steps[2].querySelector('.timeline-dot').className = 'timeline-dot t-done';
+    steps[2].querySelector('.timeline-dot').textContent = '✓';
+    steps[2].querySelector('.tl').textContent = 'Work submitted for review';
+    steps[3].querySelector('.timeline-dot').className = 'timeline-dot t-active';
+    steps[3].querySelector('.timeline-dot').textContent = '⚡';
+    // Hide submit button
+    document.getElementById('submit-work-bar').style.display = 'none';
+    showToast('Work submitted! Awaiting client review.', '📤');
+  }
+
+  function hireApplicant(name, e) {
+    e.stopPropagation();
+    showToast(`${name} hired! Funds deducted from your account and locked in escrow.`, '🤝');
+  }
+
+  function approveWork() {
+    document.getElementById('review-panel').style.display = 'none';
+    jobs[1].status = 'done';
+    jobs[1].progress = 100;
+    document.getElementById('escrow-progress').style.width = '100%';
+    document.querySelectorAll('.job-card')[1].querySelector('.badge').className = 'badge badge-completed';
+    document.querySelectorAll('.job-card')[1].querySelector('.badge').textContent = 'Done';
+    const rc = document.getElementById('review-count');
+    rc.textContent = Math.max(0, parseInt(rc.textContent) - 1);
+    showToast('✅ Work approved! $3,200 released to freelancer\'s wallet.', '✅');
+  }
+
+  function requestRedo() {
+    document.getElementById('redo-modal').classList.add('open');
+  }
+
+  function confirmRedo() {
+    closeModal('redo-modal');
+    showToast('🔄 Revision requested. Freelancer has been notified. Funds remain locked.', '🔄');
+  }
+
+  function rejectWork() {
+    document.getElementById('reject-modal').classList.add('open');
+  }
+
+  function confirmReject() {
+    closeModal('reject-modal');
+    document.getElementById('review-panel').style.display = 'none';
+    const rc = document.getElementById('review-count');
+    rc.textContent = Math.max(0, parseInt(rc.textContent) - 1);
+    showToast('⛔ Job rejected. $3,200 refunded to your wallet.', '⛔');
   }
 
   function showToast(msg, icon) {
@@ -1330,17 +1030,17 @@
     document.getElementById('toast-msg').textContent = msg;
     document.getElementById('toast-icon').textContent = icon;
     t.classList.remove('hidden');
-    setTimeout(() => t.classList.add('hidden'), 3500);
+    setTimeout(() => t.classList.add('hidden'), 4000);
   }
 
-  // Click outside modal to close
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) overlay.classList.remove('open');
-    });
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
   });
 
+  // Init: show job 0, which is hiring (no review panel)
   startCountdown(12);
+  // Show review panel because job 1 is selected by default? No, job 0 is selected by default
+  document.getElementById('review-panel').style.display = 'none';
 </script>
 </body>
 </html>
