@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 .vscode
 test.html
-=======
 # Logs
 logs
 *.log
@@ -26,4 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
->>>>>>> 67dbd8ee0466f492cefa35c1f51526f3a5b63422

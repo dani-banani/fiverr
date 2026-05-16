@@ -5,15 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChainWork — Complete Feature Testbench</title>
   <style>
-    body { font-family: monospace; background: #0c0e14; color: #2dd4bf; padding: 2rem; max-width: 900px; margin: 0 auto; }
+    body { font-family: monospace; background: #0c0e14; color: #2dd4bf; padding: 2rem; max-width: 950px; margin: 0 auto; }
     h1 { color: #a78bfa; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .card { background: #13151f; border: 1px solid rgba(255,255,255,0.07); padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem; display: flex; flex-direction: column; justify-content: space-between; }
     .card.full { grid-column: span 2; }
+    .card.dynamic-panel { border: 1px dashed #7c6dfa; background: #171626; }
     h3 { color: #fbbf24; margin-top: 0; margin-bottom: 10px; }
-    button { background: #7c6dfa; color: white; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: monospace; }
+    button { background: #7c6dfa; color: white; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: monospace; margin-right: 5px; }
     button:hover { background: #6c5de8; }
-    pre { background: #000; padding: 0.8rem; border-radius: 4px; overflow-x: auto; color: #34d399; max-height: 150px; font-size: 0.85rem; margin-top: 10px; margin-bottom: 0; }
+    button.secondary { background: #2dd4bf; color: #0c0e14; }
+    button.secondary:hover { background: #22a393; }
+    pre { background: #000; padding: 0.8rem; border-radius: 4px; overflow-x: auto; color: #34d399; max-height: 200px; font-size: 0.85rem; margin-top: 10px; margin-bottom: 0; }
     .error { color: #f87171 !important; }
     .input-group { margin-bottom: 8px; font-size: 0.8rem; color: #8b8fa8; }
     .input-group label { display: block; margin-bottom: 2px; }
@@ -23,7 +26,7 @@
 <body>
 
   <h1>📡 ChainWork Supabase Feature Testbench</h1>
-  <p>Testing direct modular database connectivity and state management changes.</p>
+  <p>Testing direct modular database connectivity and dynamic single-line queries.</p>
 
   <div class="grid">
 
@@ -49,7 +52,7 @@
       <div>
         <h3>2. Register Escrow Job (dbPostJob)</h3>
         <div class="input-group">
-          <label>Contract Job ID (Must be a unique UUID layout)</label>
+          <label>Contract Job ID (UUID layout)</label>
           <input type="text" id="j-id" value="9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d">
         </div>
         <div class="input-group">
@@ -138,6 +141,23 @@
       </div>
     </div>
 
+    <div class="card full dynamic-panel">
+      <div>
+        <h3 style="color: #a78bfa;">🔥 8. Single-Line Multi-Tool Query Tester (dbQuery)</h3>
+        <p style="font-size:0.8rem; color:#8b8fa8; margin-top:-5px;">Testing your customized polymorphic routing engine parameters dynamically.</p>
+        <div class="input-group">
+          <label>Target Shared UUID Identifier (Used for Single-Row queries below)</label>
+          <input type="text" id="dyn-id" value="9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d" style="width: 50%;">
+        </div>
+      </div>
+      <div style="margin-top: 10px;">
+        <button class="secondary" id="btn-dyn-single">Fetch Single Job Object</button>
+        <button class="secondary" id="btn-dyn-columns">Filter Title & Budget Only</button>
+        <button class="secondary" id="btn-dyn-in_progress">List 'IN_PROGRESS' Gigs</button>
+      </div>
+      <pre id="out-dynamic">Awaiting dynamic execution trigger...</pre>
+    </div>
+
   </div>
 
   <script type="module">
@@ -148,17 +168,18 @@
       dbFetchClientJobs, 
       dbAcceptJob, 
       dbSubmitWork, 
-      dbResolveJob 
+      dbResolveJob,
+      dbQuery // <-- Added the new dynamic function import
     } from './api/supabase_helpers.js';
 
-    // Helper handling response output wrappers cleanly
+    // Output visual display handler
     async function executeTest(outputId, asyncFunction) {
       const display = document.getElementById(outputId);
       display.textContent = "Processing transactional operation payload...";
       display.classList.remove('error');
       try {
         const data = await asyncFunction();
-        display.textContent = data ? JSON.stringify(data, null, 2) : "Success! (No payload data returned)";
+        display.textContent = data ? JSON.stringify(data, null, 2) : "Success! (No data payload returned)";
       } catch (err) {
         display.classList.add('error');
         display.textContent = `OPERATION ERROR:\n${err.message}`;
@@ -212,6 +233,39 @@
       const jobId = document.getElementById('resolve-id').value.trim();
       executeTest('out-resolve', () => dbResolveJob(jobId));
     });
+
+    // ========================================================================
+    // 🛠️ DYNAMIC PANEL LOGIC TRIGGERS (TEST 8)
+    // ========================================================================
+
+    // 8A. Fetch a single row as an object instead of an array
+    document.getElementById('btn-dyn-single').addEventListener('click', () => {
+      const jobId = document.getElementById('dyn-id').value.trim();
+      executeTest('out-dynamic', () => dbQuery('jobs', {
+        eq: { id: jobId },
+        single: true // Tells Supabase to return an {} instead of [{}]
+      }));
+    });
+
+    // 8B. Pick specific columns dynamically
+    document.getElementById('btn-dyn-columns').addEventListener('click', () => {
+      const jobId = document.getElementById('dyn-id').value.trim();
+      executeTest('out-dynamic', () => dbQuery('jobs', {
+        select: 'title, budget, status', // Restricts downloading metadata overhead columns
+        eq: { id: jobId },
+        single: true
+      }));
+    });
+
+    // 8C. Run arbitrary state filtering lookups
+    document.getElementById('btn-dyn-in_progress').addEventListener('click', () => {
+      executeTest('out-dynamic', () => dbQuery('jobs', {
+        select: 'id, title, status, Freelancer_id',
+        eq: { status: 'IN_PROGRESS' }, // Custom state tracking filter
+        order: { column: 'created_at', ascending: false }
+      }));
+    });
+
   </script>
 </body>
 </html>
