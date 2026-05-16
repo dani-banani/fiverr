@@ -277,8 +277,8 @@
         <div class="job-tags"><span class="tag">Figma</span><span class="tag">Web3 UX</span><span class="tag">React</span></div>
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-avatars"><div class="mini-avatar">JL</div><div class="mini-avatar">MR</div><div class="mini-avatar">AK</div></div>
-            <span class="applicant-count">5 applicants · <span style="color:var(--amber)">3 pending review</span></span>
+          <div class="mini-avatars"></div>
+            <span class="applicant-count"><span style="color:var(--amber)">Waiting for applicant</span></span>
           </div>
           <span class="badge badge-pending">Hiring</span>
         </div>
@@ -299,7 +299,7 @@
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
             <div class="mini-avatars"><div class="mini-avatar">SK</div></div>
-            <span class="applicant-count">1 hired · <span style="color:var(--red)">Work submitted — review required</span></span>
+            <span class="applicant-count">1 applicant · <span style="color:var(--red)">Work submitted — review required</span></span>
           </div>
           <span class="badge badge-review">Review</span>
         </div>
@@ -320,7 +320,7 @@
         <div class="applicants-bar">
           <div style="display:flex;align-items:center;gap:8px;">
             <div class="mini-avatars"><div class="mini-avatar">PM</div></div>
-            <span class="applicant-count">1 hired · <span style="color:var(--green)">Work in progress</span></span>
+            <span class="applicant-count">1 applicant · <span style="color:var(--green)">Work in progress</span></span>
           </div>
           <span class="badge badge-active">Active</span>
         </div>
@@ -465,7 +465,7 @@
         </div>
       </div>
 
-      <div class="job-listing-card">
+      <div class="job-listing-card" id="job-card-defi" data-title="DeFi Dashboard UI Design" data-pay="$2,400">
         <div class="jl-head">
           <div>
             <div class="jl-company"><span class="verified-dot"></span> TechVault Labs · Verified Client</div>
@@ -481,14 +481,14 @@
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 14 days</div>
-            <div class="jl-detail"><span class="detail-icon">👥</span> 5 applicants</div>
+            <div class="jl-detail jl-detail-applicants"><span class="detail-icon">👥</span> Open</div>
             <div class="jl-detail"><span class="detail-icon">⏰</span> 2h ago</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openApply('DeFi Dashboard UI Design', '$2,400')">Apply Now</button>
+          <button class="btn btn-primary btn-sm apply-btn" onclick="openApply('DeFi Dashboard UI Design', '$2,400', 'job-card-defi')">Apply Now</button>
         </div>
       </div>
 
-      <div class="job-listing-card">
+      <div class="job-listing-card" id="job-card-audit" data-title="Smart Contract Audit — ERC-20" data-pay="$3,200">
         <div class="jl-head">
           <div>
             <div class="jl-company"><span class="verified-dot"></span> ChainSecure Inc · Verified Client</div>
@@ -504,14 +504,14 @@
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 10 days</div>
-            <div class="jl-detail"><span class="detail-icon">👥</span> 2 applicants</div>
+            <div class="jl-detail jl-detail-applicants"><span class="detail-icon">👥</span> Open</div>
             <div class="jl-detail"><span class="detail-icon">⏰</span> 5h ago</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openApply('Smart Contract Audit — ERC-20', '$3,200')">Apply Now</button>
+          <button class="btn btn-primary btn-sm apply-btn" onclick="openApply('Smart Contract Audit — ERC-20', '$3,200', 'job-card-audit')">Apply Now</button>
         </div>
       </div>
 
-      <div class="job-listing-card">
+      <div class="job-listing-card" id="job-card-api" data-title="Blockchain Backend API" data-pay="$1,800">
         <div class="jl-head">
           <div>
             <div class="jl-company"><span class="verified-dot"></span> NexusDAO · Verified Client</div>
@@ -527,10 +527,10 @@
         <div class="jl-foot">
           <div class="jl-details">
             <div class="jl-detail"><span class="detail-icon">📅</span> 21 days</div>
-            <div class="jl-detail"><span class="detail-icon">👥</span> 7 applicants</div>
+            <div class="jl-detail jl-detail-applicants"><span class="detail-icon">👥</span> Open</div>
             <div class="jl-detail"><span class="detail-icon">⏰</span> 1d ago</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openApply('Blockchain Backend API', '$1,800')">Apply Now</button>
+          <button class="btn btn-primary btn-sm apply-btn" onclick="openApply('Blockchain Backend API', '$1,800', 'job-card-api')">Apply Now</button>
         </div>
       </div>
     </div>
@@ -555,7 +555,7 @@
           </div>
           <!-- Submit work button shown when hired -->
           <div id="submit-work-bar" style="padding:8px 1.4rem;background:rgba(52,211,153,0.05);border-bottom:1px solid var(--border);">
-            <button class="btn btn-teal btn-sm btn-full" onclick="openSubmitWork('NFT Marketplace Design', '$950')">📤 Submit Completed Work</button>
+            <button class="btn btn-teal btn-sm btn-full" onclick="openSubmitWork('NFT Marketplace Design', '$950', null)">📤 Submit Completed Work</button>
           </div>
 
           <div class="app-row">
@@ -861,6 +861,9 @@
   let currentJobIdx = 0;
   let countdownInterval;
 
+  // tracks which job listing card ids are taken (freelancer applied)
+  const takenJobs = new Set();
+
   const jobs = [
     { title: 'DeFi Dashboard UI Design', amount: '$2,400', days: 12, progress: 15, applicants: '5 total', status: 'hiring' },
     { title: 'Smart Contract Audit — ERC-20', amount: '$3,200', days: 3, progress: 60, applicants: '1 hired', status: 'review' },
@@ -936,33 +939,86 @@
     showToast('🔒 Job posted! Funds locked in escrow.', '🔒');
   }
 
-  function openApply(title, pay) {
+  let currentApplyCardId = null;
+
+  function openApply(title, pay, cardId) {
+    if (takenJobs.has(cardId)) return;
+    currentApplyCardId = cardId;
     document.getElementById('apply-job-title').textContent = title;
     document.getElementById('apply-job-pay').textContent = pay;
     document.getElementById('apply-escrow-amt').textContent = pay;
     document.getElementById('apply-modal').classList.add('open');
   }
 
+  function lockJobCard(cardId) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    takenJobs.add(cardId);
+    const btn = card.querySelector('.apply-btn');
+    if (btn) {
+      btn.textContent = '🔒 Taken';
+      btn.disabled = true;
+      btn.className = 'btn btn-sm';
+      btn.style.cssText = 'background:rgba(139,143,168,0.15);color:var(--muted);border:1px solid var(--border2);cursor:not-allowed;padding:6px 14px;font-size:0.8rem;border-radius:8px;';
+    }
+    // update applicant count to show taken
+    const countEl = card.querySelector('.jl-detail-applicants');
+    if (countEl) countEl.textContent = '1 applicant';
+    // grey out card slightly
+    card.style.opacity = '0.75';
+  }
+
+  function unlockJobCard(cardId) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    takenJobs.delete(cardId);
+    const btn = card.querySelector('.apply-btn');
+    if (btn) {
+      const title = card.dataset.title;
+      const pay = card.dataset.pay;
+      btn.textContent = 'Apply Now';
+      btn.disabled = false;
+      btn.className = 'btn btn-primary btn-sm apply-btn';
+      btn.style.cssText = '';
+      btn.onclick = () => openApply(title, pay, cardId);
+    }
+    card.style.opacity = '1';
+  }
+
   function submitApplication() {
     closeModal('apply-modal');
     const title = document.getElementById('apply-job-title').textContent;
     const pay = document.getElementById('apply-job-pay').textContent;
+
+    // Lock the job card so no one else can apply
+    if (currentApplyCardId) lockJobCard(currentApplyCardId);
+
     const list = document.getElementById('my-applications-list');
     const div = document.createElement('div');
     div.className = 'app-row';
+    div.dataset.cardId = currentApplyCardId;
     div.innerHTML = `
-      <div style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
-      <div class="app-row-info"><div class="app-row-title">${title}</div><div class="app-row-company">New Application</div></div>
+      <div style="width:36px;height:36px;border-radius:8px;background:rgba(124,109,250,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--accent2);">⚡</div>
+      <div class="app-row-info"><div class="app-row-title">${title}</div><div class="app-row-company">You are the only applicant — job locked</div></div>
       <div class="app-row-pay">${pay}</div>
-      <span class="badge badge-pending">Pending</span>
+      <span class="badge badge-active">Hired</span>
     `;
-    list.insertBefore(div, list.firstChild);
+    // Add submit button below
+    const submitBar = document.createElement('div');
+    submitBar.style.cssText = 'padding:8px 1.4rem;background:rgba(52,211,153,0.05);border-bottom:1px solid var(--border);';
+    submitBar.innerHTML = `<button class="btn btn-teal btn-sm btn-full" onclick="openSubmitWork('${title}', '${pay}', '${currentApplyCardId}')">📤 Submit Completed Work</button>`;
+    list.insertBefore(submitBar, list.firstChild);
+    list.insertBefore(div, submitBar);
+
     const cnt = document.getElementById('fl-app-count');
     cnt.textContent = parseInt(cnt.textContent) + 1;
-    showToast('Application submitted! 🎉', '✅');
+    showToast('Applied! Job is now locked to you — no one else can apply.', '🔒');
   }
 
-  function openSubmitWork(title, pay) {
+  let currentSubmitCardId = null;
+
+  function openSubmitWork(title, pay, cardId) {
+    currentSubmitCardId = cardId || null;
     document.getElementById('submit-job-title').textContent = title;
     document.getElementById('submit-job-pay').textContent = pay;
     document.getElementById('submit-work-modal').classList.add('open');
@@ -1022,7 +1078,9 @@
     document.getElementById('review-panel').style.display = 'none';
     const rc = document.getElementById('review-count');
     rc.textContent = Math.max(0, parseInt(rc.textContent) - 1);
-    showToast('⛔ Job rejected. $3,200 refunded to your wallet.', '⛔');
+    // Unlock the job card so new freelancers can apply again
+    unlockJobCard('job-card-audit');
+    showToast('⛔ Job rejected. $3,200 refunded. Job is now open for new applicants.', '⛔');
   }
 
   function showToast(msg, icon) {
