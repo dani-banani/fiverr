@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {useState} from "react";
 import Modal from "../shared/Modal";
 import Button from "../shared/Button";
@@ -71,10 +72,45 @@ function PostJobModal({
     setBudget("");
     setSkills("");
     setTimeline(14);
+=======
+import { useState } from "react";
+import Modal from "../shared/Modal";
+import Button from "../shared/Button";
+import { useJobsContext } from "../../context/JobContext";
+
+function PostJobModal({ open, onClose }) {
+  const { addJob } = useJobsContext();
+
+  const [title,       setTitle]    = useState("");
+  const [description, setDesc]     = useState("");
+  const [category,    setCategory] = useState("Design");
+  const [timeline,    setTimeline] = useState(14);
+  const [budget,      setBudget]   = useState("");
+  const [skills,      setSkills]   = useState("");
+  const [loading,     setLoading]  = useState(false);
+
+  const amount = parseFloat(budget) || 0;
+  const fee    = amount * 0.03;
+  const total  = amount + fee;
+
+  const handleSubmit = async () => {
+    if (!title || !budget) return;
+    setLoading(true);
+    await addJob({
+      title,
+      description,
+      budget,
+      timeline,
+      tags: skills.split(",").map((s) => s.trim()).filter(Boolean),
+    });
+    setTitle(""); setDesc(""); setBudget(""); setSkills(""); setTimeline(14);
+    setLoading(false);
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
     onClose();
   };
 
   return (
+<<<<<<< HEAD
     <Modal open={open}
            onClose={onClose}
            title="Post a New Job">
@@ -87,6 +123,14 @@ function PostJobModal({
           <strong>locked in a smart contract escrow</strong> when you post.
           Funds only release when you approve submitted work — fully on-chain
           and trustless.
+=======
+    <Modal open={open} onClose={onClose} title="Post a New Job">
+      <div className="info-box purple" style={{ marginBottom: "1.2rem" }}>
+        <div className="icon">🔒</div>
+        <p>
+          Your payment is <strong>locked in a smart contract escrow</strong> when
+          you post. Funds only release when you approve submitted work.
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         </p>
       </div>
 
@@ -110,6 +154,7 @@ function PostJobModal({
         />
       </div>
 
+<<<<<<< HEAD
       <div style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -128,6 +173,9 @@ function PostJobModal({
             <option>Marketing</option>
           </select>
         </div>
+=======
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
 
         <div className="form-group">
           <label className="form-label">Timeline (days)</label>
@@ -156,6 +204,7 @@ function PostJobModal({
       </div>
 
       {/* Escrow breakdown */}
+<<<<<<< HEAD
       <div className="panel"
            style={{marginBottom: "1.2rem"}}>
         <div className="panel-body">
@@ -221,6 +270,29 @@ function PostJobModal({
             <div className="chain-block"
                  style={{color: "var(--green)"}}>Smart Contract
             </div>
+=======
+      <div className="panel" style={{ marginBottom: "1.2rem" }}>
+        <div className="panel-body">
+          <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginBottom: "8px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+            Escrow Breakdown
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "6px" }}>
+            <span style={{ color: "var(--muted)" }}>Payment to freelancer</span>
+            <span style={{ fontFamily: "var(--font-mono)" }}>${amount.toFixed(2)}</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", marginBottom: "6px" }}>
+            <span style={{ color: "var(--muted)" }}>Platform fee (3%)</span>
+            <span style={{ fontFamily: "var(--font-mono)", color: "var(--muted)" }}>${fee.toFixed(2)}</span>
+          </div>
+          <div style={{ borderTop: "1px solid var(--border)", margin: "8px 0", paddingTop: "8px", display: "flex", justifyContent: "space-between", fontWeight: 600 }}>
+            <span>Total locked on-chain</span>
+            <span style={{ fontFamily: "var(--font-mono)", color: "var(--teal)" }}>${total.toFixed(2)}</span>
+          </div>
+          <div className="chain-visual" style={{ padding: "8px 0 0" }}>
+            <div className="chain-block">Your wallet</div>
+            <span className="chain-arrow">→</span>
+            <div className="chain-block" style={{ color: "var(--green)" }}>Smart Contract</div>
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
             <span className="chain-arrow">→</span>
             <div className="chain-block">Freelancer</div>
           </div>
@@ -237,6 +309,7 @@ function PostJobModal({
         />
       </div>
 
+<<<<<<< HEAD
       <div style={{
         display: "flex",
         gap: "10px",
@@ -250,6 +323,14 @@ function PostJobModal({
         <Button onClick={submitJob}
                 style={{flex: 2}}>
           🔒 Lock Funds & Post Job
+=======
+      <div style={{ display: "flex", gap: "10px", marginTop: "0.5rem" }}>
+        <Button variant="outline" onClick={onClose} style={{ flex: 1 }}>
+          Cancel
+        </Button>
+        <Button onClick={handleSubmit} disabled={loading} style={{ flex: 2 }}>
+          {loading ? "Posting..." : "🔒 Lock Funds & Post Job"}
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         </Button>
       </div>
     </Modal>

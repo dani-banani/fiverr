@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // api/supabaseClient.js
+=======
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 const SUPABASE_URL = "https://irywemujuaeldlkuhfam.supabase.co";

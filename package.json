@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "react": "^19.2.6",
+<<<<<<< HEAD
     "react-dom": "^19.2.6",
     "viem": "^2.49.3"
+=======
+    "react-dom": "^19.2.6"
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

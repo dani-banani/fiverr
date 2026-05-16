@@ -18,10 +18,14 @@ function ReviewPanel({ job }) {
     <>
       <div
         className="panel"
+<<<<<<< HEAD
         style={{
           marginBottom: "16px",
           borderColor: "rgba(248,113,113,0.3)",
         }}
+=======
+        style={{ marginBottom: "16px", borderColor: "rgba(248,113,113,0.3)" }}
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
       >
         <div
           className="panel-head"
@@ -47,10 +51,68 @@ function ReviewPanel({ job }) {
             <div className="review-submission-title">
               {job.submissionTitle ?? "Submitted Work"}
             </div>
+<<<<<<< HEAD
             <div className="review-submission-desc">
               {job.submissionDesc ??
                 "The freelancer has delivered the completed work for this job. Review the attached files and notes before taking action."}
             </div>
+=======
+
+            {/* Delivery notes */}
+            {job.submissionDesc && (
+              <div className="review-submission-desc">
+                {job.submissionDesc}
+              </div>
+            )}
+
+            {/* Delivery link — clickable */}
+            {job.submissionFile && (
+  <div
+    style={{
+      margin: "10px 0",
+      padding: "10px 12px",
+      background: "var(--bg)",
+      border: "1px solid var(--border2)",
+      borderRadius: "8px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "10px",
+    }}
+  >
+    <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
+      <span style={{ fontSize: "1rem", flexShrink: 0 }}>🔗</span>
+      <a                               // ✅ added
+        href={job.submissionFile}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: "var(--accent2)",
+          fontSize: "0.8rem",
+          fontFamily: "var(--font-mono)",
+          textDecoration: "none",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {job.submissionFile}
+      </a>
+    </div>
+    <a                                
+      href={job.submissionFile}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="btn btn-sm btn-outline"
+      style={{ flexShrink: 0, fontSize: "0.75rem", padding: "4px 10px" }}
+    >
+      Open ↗
+    </a>
+  </div>
+)}
+
+            {/* Submission date */}
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
             {job.submissionDate && (
               <div
                 style={{
@@ -59,6 +121,7 @@ function ReviewPanel({ job }) {
                   marginBottom: "10px",
                 }}
               >
+<<<<<<< HEAD
                 📎 {job.submissionFile ?? "submission.pdf"} · Submitted{" "}
                 {job.submissionDate}
               </div>
@@ -84,6 +147,20 @@ function ReviewPanel({ job }) {
                 small
                 onClick={() => setRejectOpen(true)}
               >
+=======
+                📅 Submitted {job.submissionDate}
+              </div>
+            )}
+
+            <div className="review-actions" style={{ marginTop: "12px" }}>
+              <Button variant="teal" small onClick={() => approveJob(job.id)}>
+                ✅ Approve & Release Payment
+              </Button>
+              <Button variant="amber" small onClick={() => setRedoOpen(true)}>
+                🔄 Request Revision
+              </Button>
+              <Button variant="danger" small onClick={() => setRejectOpen(true)}>
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
                 ✗ Reject Job
               </Button>
             </div>
@@ -97,21 +174,31 @@ function ReviewPanel({ job }) {
             <div className="icon">💡</div>
             <p>
               Approving releases{" "}
+<<<<<<< HEAD
               <strong>${job.amount?.toLocaleString()}</strong> from escrow to
               the freelancer's wallet instantly. Rejecting refunds you.
               Requesting a revision keeps funds locked and the freelancer must
               resubmit.
+=======
+              <strong>${job.amount?.toLocaleString()}</strong> from escrow
+              instantly. Rejecting refunds you. Requesting a revision keeps
+              funds locked.
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
             </p>
           </div>
         </div>
       </div>
 
       {/* Revision modal */}
+<<<<<<< HEAD
       <Modal
         open={redoOpen}
         onClose={() => setRedoOpen(false)}
         title="Request Revision"
       >
+=======
+      <Modal open={redoOpen} onClose={() => setRedoOpen(false)} title="Request Revision">
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div className="info-box amber" style={{ marginBottom: "1.2rem" }}>
           <div className="icon">🔄</div>
           <p>
@@ -120,7 +207,10 @@ function ReviewPanel({ job }) {
             submission is approved or rejected.
           </p>
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div className="form-group">
           <label className="form-label">Describe what needs to be revised</label>
           <textarea
@@ -131,7 +221,10 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRedoNote(e.target.value)}
           />
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div className="form-group">
           <label className="form-label">Extended Deadline (days from now)</label>
           <input
@@ -142,7 +235,10 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRedoDays(e.target.value)}
           />
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div style={{ display: "flex", gap: "10px" }}>
           <Button variant="outline" onClick={() => setRedoOpen(false)} style={{ flex: 1 }}>
             Cancel
@@ -150,10 +246,14 @@ function ReviewPanel({ job }) {
           <Button
             variant="amber"
             style={{ flex: 2 }}
+<<<<<<< HEAD
             onClick={() => {
               requestRedo(job.id, redoNote, redoDays);
               setRedoOpen(false);
             }}
+=======
+            onClick={() => { requestRedo(job.id, redoNote, redoDays); setRedoOpen(false); }}
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
           >
             🔄 Send Revision Request
           </Button>
@@ -161,6 +261,7 @@ function ReviewPanel({ job }) {
       </Modal>
 
       {/* Reject modal */}
+<<<<<<< HEAD
       <Modal
         open={rejectOpen}
         onClose={() => setRejectOpen(false)}
@@ -176,6 +277,17 @@ function ReviewPanel({ job }) {
           </p>
         </div>
 
+=======
+      <Modal open={rejectOpen} onClose={() => setRejectOpen(false)} title="Reject Job">
+        <div className="info-box red" style={{ marginBottom: "1.2rem" }}>
+          <div className="icon">⛔</div>
+          <p>
+            Rejecting will <strong>refund the full escrow amount to your
+            wallet</strong>. The freelancer will not be paid. This cannot be
+            undone.
+          </p>
+        </div>
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div className="form-group">
           <label className="form-label">Reason for Rejection</label>
           <textarea
@@ -186,7 +298,10 @@ function ReviewPanel({ job }) {
             onChange={(e) => setRejectNote(e.target.value)}
           />
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
         <div style={{ display: "flex", gap: "10px" }}>
           <Button variant="outline" onClick={() => setRejectOpen(false)} style={{ flex: 2 }}>
             Go Back
@@ -194,10 +309,14 @@ function ReviewPanel({ job }) {
           <Button
             variant="danger"
             style={{ flex: 1 }}
+<<<<<<< HEAD
             onClick={() => {
               rejectJob(job.id);
               setRejectOpen(false);
             }}
+=======
+            onClick={() => { rejectJob(job.id); setRejectOpen(false); }}
+>>>>>>> 1f5c1cac7a76ae75f35cbf5cf2162149029a69e0
           >
             Reject &amp; Refund
           </Button>
