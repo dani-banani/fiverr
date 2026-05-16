@@ -100,4 +100,118 @@
         </div>
       </div>
       <div>
-        <button id="btn-accept">Claim Assignment</button
+        <button id="btn-accept">Claim Assignment</button>
+        <pre id="out-accept">Awaiting click...</pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <h3>6. Upload Deliverables (dbSubmitWork)</h3>
+        <div class="input-group">
+          <label>Target Job UUID</label>
+          <input type="text" id="submit-id" value="9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d">
+        </div>
+        <div class="input-group">
+          <label>Notes & Artifact URL Link</label>
+          <input type="text" id="submit-notes" value="Audit report drafted." style="width:50%;">
+          <input type="text" id="submit-url" value="https://github.com/deliverables" style="width:35%;">
+        </div>
+      </div>
+      <div>
+        <button id="btn-submit">Submit Package</button>
+        <pre id="out-submit">Awaiting click...</pre>
+      </div>
+    </div>
+
+    <div class="card full">
+      <div>
+        <h3>7. Settle & Release Funds (dbResolveJob)</h3>
+        <div class="input-group">
+          <label>Target Job UUID</label>
+          <input type="text" id="resolve-id" value="9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d" style="width: 50%;">
+        </div>
+      </div>
+      <div>
+        <button id="btn-resolve">Approve & Release</button>
+        <pre id="out-resolve">Awaiting click...</pre>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { 
+      dbUpsertUser, 
+      dbPostJob, 
+      dbFetchMarketplaceJobs, 
+      dbFetchClientJobs, 
+      dbAcceptJob, 
+      dbSubmitWork, 
+      dbResolveJob 
+    } from './api/supabase_helpers.js';
+
+    // Helper handling response output wrappers cleanly
+    async function executeTest(outputId, asyncFunction) {
+      const display = document.getElementById(outputId);
+      display.textContent = "Processing transactional operation payload...";
+      display.classList.remove('error');
+      try {
+        const data = await asyncFunction();
+        display.textContent = data ? JSON.stringify(data, null, 2) : "Success! (No payload data returned)";
+      } catch (err) {
+        display.classList.add('error');
+        display.textContent = `OPERATION ERROR:\n${err.message}`;
+      }
+    }
+
+    // 1. Hooking up Upsert User
+    document.getElementById('btn-upsert-user').addEventListener('click', () => {
+      const wallet = document.getElementById('u-wallet').value.trim();
+      const name = document.getElementById('u-name').value.trim();
+      executeTest('out-upsert-user', () => dbUpsertUser(wallet, name, 'client'));
+    });
+
+    // 2. Hooking up Post Job
+    document.getElementById('btn-post-job').addEventListener('click', () => {
+      const id = document.getElementById('j-id').value.trim();
+      const title = document.getElementById('j-title').value.trim();
+      const budget = document.getElementById('j-budget').value.trim();
+      const client = document.getElementById('u-wallet').value.trim();
+      executeTest('out-post-job', () => dbPostJob(id, title, "Figma dashboard UI design asset layers.", budget, 14, client));
+    });
+
+    // 3. Hooking up Fetch Marketplace Feed
+    document.getElementById('btn-fetch-market').addEventListener('click', () => {
+      executeTest('out-fetch-market', () => dbFetchMarketplaceJobs());
+    });
+
+    // 4. Hooking up Fetch Client Dash
+    document.getElementById('btn-fetch-client').addEventListener('click', () => {
+      const targetClient = document.getElementById('c-wallet-search').value.trim();
+      executeTest('out-fetch-client', () => dbFetchClientJobs(targetClient));
+    });
+
+    // 5. Hooking up Claim Assignment
+    document.getElementById('btn-accept').addEventListener('click', () => {
+      const jobId = document.getElementById('claim-id').value.trim();
+      const freelancer = document.getElementById('f-wallet').value.trim();
+      executeTest('out-accept', () => dbAcceptJob(jobId, freelancer));
+    });
+
+    // 6. Hooking up Submit Package
+    document.getElementById('btn-submit').addEventListener('click', () => {
+      const jobId = document.getElementById('submit-id').value.trim();
+      const notes = document.getElementById('submit-notes').value.trim();
+      const url = document.getElementById('submit-url').value.trim();
+      executeTest('out-submit', () => dbSubmitWork(jobId, notes, url));
+    });
+
+    // 7. Hooking up Settle & Release
+    document.getElementById('btn-resolve').addEventListener('click', () => {
+      const jobId = document.getElementById('resolve-id').value.trim();
+      executeTest('out-resolve', () => dbResolveJob(jobId));
+    });
+  </script>
+</body>
+</html>
