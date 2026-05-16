@@ -1,1 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ChainWork — Freelance Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --bg: #0c0e14;
+    --surface: #13151f;
+    --surface2: #1a1d2e;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --accent: #7c6dfa;
+    --accent2: #a78bfa;
+    --teal: #2dd4bf;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --green: #34d399;
+    --text: #f0f0f8;
+    --muted: #8b8fa8;
+    --card-r: 16px;
+    --font-display: 'DM Serif Display', serif;
+    --font-body: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12,14,20,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent2), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-center {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px;
+  }
+
+  .role-btn {
+    padding: 6px 20px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .role-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 600;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* LAYOUT */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  /* HEADINGS */
+  h1.page-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .page-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-r);
+    padding: 1.2rem 1.4rem;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .stat-val { font-size: 1.6rem; font-weight: 700; font-family: var(--font-mono); }
+  .stat-val.accent { color: var(--accent2); }
+  .stat-val.teal { color: var(--teal); }
+  .stat-val.amber { color: var(--amber); }
+  .stat-val.green { color: var(--green); }
+
+  /* GRID LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* SECTION */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .section-head h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .badge {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .badge-pending { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+  .badge-locked { background: rgba(124,109,250,0.15); color: var(--accent2); border: 1px solid rgba(124,109,250,0.3); }
+  .badge-active { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .badge-completed { background: rgba(45,212,191,0.15); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+  .badge-new { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+
+  /* JOB CARDS */
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-r);
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .job-card:hover { border-color: var(--border2); background: var(--surface2); }
+  .job-card.selected { border-color: var(--accent); }
+
+  .job-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .job-title { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+  .job-meta { font-size: 0.8rem; color: var(--muted); }
+  .job-pay {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--teal);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .job-pay small { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; }
+
+  .job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+
+  .applicants-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .mini-avatars { display: flex; }
+  .mini-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    border: 2px solid var(--surface);
+    margin-left: -6px;
+    font-size: 0.6rem;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 600;
+  }
+  .mini-avatars .mini-avatar:first-child { margin-left: 0; }
+
+  .applicant-count { font-size: 0.8rem; color: var(--muted); }
+
+  /* ESCROW PANEL */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-r);
+    overflow: hidden;
+  }
+  .panel-head {
+    padding: 1.2rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-head h3 { font-size: 0.9rem; font-weight: 600; }
+  .panel-body { padding: 1.2rem 1.4rem; }
+
+  .escrow-amount {
+    text-align: center;
+    padding: 1.5rem 0 1rem;
+  }
+  .escrow-amount .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .escrow-amount .value {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--accent2);
+  }
+  .escrow-amount .sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  .escrow-timeline {
+    margin: 1.2rem 0;
+  }
+  .timeline-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .timeline-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 24px;
+    width: 1px;
+    height: calc(100% - 8px);
+    background: var(--border);
+  }
+  .timeline-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    z-index: 1;
+  }
+  .t-done { background: rgba(52,211,153,0.2); border: 1px solid var(--green); color: var(--green); }
+  .t-active { background: rgba(124,109,250,0.2); border: 1px solid var(--accent); color: var(--accent2); }
+  .t-pending { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+
+  .timeline-info { padding-top: 2px; }
+  .timeline-info .tl { font-size: 0.85rem; font-weight: 500; }
+  .timeline-info .ts { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+  /* APPLICANT LIST */
+  .applicant-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .applicant-item:last-child { border-bottom: none; }
+  .applicant-item:hover { background: var(--surface2); margin: 0 -1.4rem; padding: 12px 1.4rem; border-radius: 8px; }
+
+  .app-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 600;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .app-info { flex: 1; min-width: 0; }
+  .app-name { font-size: 0.9rem; font-weight: 600; }
+  .app-role { font-size: 0.75rem; color: var(--muted); }
+  .app-rate { font-family: var(--font-mono); font-size: 0.85rem; color: var(--teal); }
+
+  /* BUTTONS */
+  .btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #6c5de8; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { background: var(--surface2); }
+  .btn-teal {
+    background: rgba(45,212,191,0.15);
+    color: var(--teal);
+    border: 1px solid rgba(45,212,191,0.3);
+  }
+  .btn-teal:hover { background: rgba(45,212,191,0.25); }
+  .btn-danger {
+    background: rgba(248,113,113,0.15);
+    color: var(--red);
+    border: 1px solid rgba(248,113,113,0.3);
+  }
+  .btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
+  .btn-full { width: 100%; justify-content: center; margin-bottom: 8px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    width: 520px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 1.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-head h2 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; }
+  .close-btn { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+  .modal-body { padding: 1.4rem 1.6rem; }
+
+  /* FORM */
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-select { appearance: none; cursor: pointer; }
+
+  .amount-input-wrap {
+    position: relative;
+  }
+  .amount-input-wrap .currency {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .amount-input-wrap .form-input { padding-left: 40px; font-family: var(--font-mono); }
+
+  .escrow-info-box {
+    background: rgba(124,109,250,0.08);
+    border: 1px solid rgba(124,109,250,0.2);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    gap: 10px;
+  }
+  .escrow-info-box .icon { font-size: 1.1rem; flex-shrink: 0; padding-top: 2px; }
+  .escrow-info-box p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .escrow-info-box strong { color: var(--accent2); }
+
+  /* BLOCKCHAIN LOCK VISUAL */
+  .chain-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 1rem 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+  .chain-block {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    color: var(--accent2);
+  }
+  .chain-arrow { color: var(--muted); }
+
+  /* RELEASE TIMER */
+  .timer-display {
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  .timer-display .timer-val { font-family: var(--font-mono); font-size: 1.6rem; color: var(--amber); font-weight: 500; }
+  .timer-display .timer-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin: 8px 0; }
+  .progress-bg { background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--teal)); transition: width 0.4s; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+  /* FREELANCER VIEW */
+  .job-listing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-r);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .job-listing-card:hover { border-color: var(--border2); }
+
+  .jl-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .jl-company {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .verified-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .jl-pay { text-align: right; }
+  .jl-pay .amount { font-family: var(--font-mono); font-size: 1.3rem; color: var(--teal); font-weight: 500; }
+  .jl-pay .locked-badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(124,109,250,0.15);
+    color: var(--accent2);
+    border: 1px solid rgba(124,109,250,0.25);
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  .jl-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .jl-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .jl-details { display: flex; gap: 16px; }
+  .jl-detail { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .detail-icon { font-size: 0.9rem; }
+
+  /* APPLY STATUS */
+  .my-applications {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--card-r);
+    overflow: hidden;
+  }
+  .app-row {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .app-row:last-child { border-bottom: none; }
+  .app-row-info { flex: 1; }
+  .app-row-title { font-size: 0.9rem; font-weight: 500; }
+  .app-row-company { font-size: 0.78rem; color: var(--muted); }
+  .app-row-pay { font-family: var(--font-mono); font-size: 0.9rem; color: var(--teal); margin-right: 12px; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 0.875rem;
+    display: flex; align-items: center; gap: 10px;
+    z-index: 300;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    max-width: 360px;
+  }
+  .toast.hidden { display: none; }
+  .toast-icon { font-size: 1.2rem; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 1rem; }
+    .page { padding: 1.5rem 1rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">⬡ ChainWork</div>
+  <div class="nav-center">
+    <button class="role-btn active" onclick="switchRole('client')">Client</button>
+    <button class="role-btn" onclick="switchRole('freelancer')">Freelancer</button>
+  </div>
+  <div class="nav-user">
+    <span id="nav-username">Alex Chen</span>
+    <div class="avatar" id="nav-avatar">AC</div>
+  </div>
+</nav>
+
+<!-- ===================== CLIENT VIEW ===================== -->
+<div id="view-client" class="view active">
+<div class="page">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2rem;">
+    <div>
+      <h1 class="page-title">Client Dashboard</h1>
+      <p class="page-sub">Manage jobs, review applicants, and track escrow payments on-chain.</p>
+    </div>
+    <button class="btn btn-primary" onclick="openPostJob()">+ Post New Job</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Active Jobs</div>
+      <div class="stat-val accent">4</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Escrow Locked</div>
+      <div class="stat-val teal">$8,450</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Applicants</div>
+      <div class="stat-val amber">12</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Completed</div>
+      <div class="stat-val green">9</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- LEFT: Job List -->
+    <div>
+      <div class="section-head">
+        <h2>Your Posted Jobs</h2>
+        <span class="badge badge-pending">4 Active</span>
+      </div>
+
+      <!-- Job Cards -->
+      <div class="job-card selected" onclick="selectJob(this, 0)">
+        <div class="job-card-top">
+          <div>
+            <div class="job-title">DeFi Dashboard UI Design</div>
+            <div class="job-meta">Posted 2 days ago · Ends in 12 days</div>
+          </div>
+          <div>
+            <div class="job-pay">$2,400<br><small>🔒 Escrow locked</small></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-locked">Locked</span></div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="tag">Figma</span>
+          <span class="tag">Web3 UX</span>
+          <span class="tag">React</span>
+        </div>
+        <div class="applicants-bar">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="mini-avatars">
+              <div class="mini-avatar">JL</div>
+              <div class="mini-avatar">MR</div>
+              <div class="mini-avatar">AK</div>
+            </div>
+            <span class="applicant-count">5 applicants · <span style="color:var(--amber)">3 pending review</span></span>
+          </div>
+          <span class="badge badge-pending">Pending</span>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob(this, 1)">
+        <div class="job-card-top">
+          <div>
+            <div class="job-title">Smart Contract Audit — ERC-20</div>
+            <div class="job-meta">Posted 5 days ago · Ends in 9 days</div>
+          </div>
+          <div>
+            <div class="job-pay">$3,200<br><small>🔒 Escrow locked</small></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-active">In Progress</span></div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">Security</span>
+          <span class="tag">Ethereum</span>
+        </div>
+        <div class="applicants-bar">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="mini-avatars">
+              <div class="mini-avatar">SK</div>
+            </div>
+            <span class="applicant-count">1 hired · <span style="color:var(--green)">Work in progress</span></span>
+          </div>
+          <span class="badge badge-active">Active</span>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob(this, 2)">
+        <div class="job-card-top">
+          <div>
+            <div class="job-title">Blockchain Backend API</div>
+            <div class="job-meta">Posted 1 day ago · Ends in 14 days</div>
+          </div>
+          <div>
+            <div class="job-pay">$1,800<br><small>🔒 Escrow locked</small></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-pending">Pending</span></div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Web3.js</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+        <div class="applicants-bar">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="mini-avatars">
+              <div class="mini-avatar">PM</div>
+              <div class="mini-avatar">CW</div>
+            </div>
+            <span class="applicant-count">2 applicants · <span style="color:var(--amber)">2 pending review</span></span>
+          </div>
+          <span class="badge badge-pending">Pending</span>
+        </div>
+      </div>
+
+      <div class="job-card" onclick="selectJob(this, 3)">
+        <div class="job-card-top">
+          <div>
+            <div class="job-title">NFT Marketplace Frontend</div>
+            <div class="job-meta">Posted 3 days ago · Ends in 11 days</div>
+          </div>
+          <div>
+            <div class="job-pay">$1,050<br><small>🔒 Escrow locked</small></div>
+            <div style="text-align:right;margin-top:6px;"><span class="badge badge-completed">Completed</span></div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">IPFS</span>
+          <span class="tag">TailwindCSS</span>
+        </div>
+        <div class="applicants-bar">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="mini-avatars">
+              <div class="mini-avatar">LK</div>
+            </div>
+            <span class="applicant-count">Completed · <span style="color:var(--teal)">Payment released</span></span>
+          </div>
+          <span class="badge badge-completed">Done</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Detail Panel -->
+    <div>
+      <!-- Escrow Panel -->
+      <div class="panel" style="margin-bottom:16px;">
+        <div class="panel-head">
+          <h3>⬡ Escrow Status</h3>
+          <span class="badge badge-locked">Blockchain Locked</span>
+        </div>
+        <div class="panel-body">
+          <div class="escrow-amount">
+            <div class="label">Locked Amount</div>
+            <div class="value" id="escrow-val">$2,400.00</div>
+            <div class="sub" id="escrow-sub">DeFi Dashboard UI Design</div>
+          </div>
+
+          <div class="chain-visual">
+            <div class="chain-block">0x4f2a...</div>
+            <span class="chain-arrow">→</span>
+            <div class="chain-block" style="color:var(--green)">LOCK</div>
+            <span class="chain-arrow">→</span>
+            <div class="chain-block">0x8e1c...</div>
+          </div>
+
+          <div class="timer-display">
+            <div class="timer-val" id="countdown-display">12d 04h 33m</div>
+            <div class="timer-label">Auto-release countdown</div>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-bg"><div class="progress-fill" id="escrow-progress" style="width:15%"></div></div>
+            <div class="progress-label"><span>Job started</span><span>Auto-release</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Applicants Panel -->
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Applicants</h3>
+          <span class="badge badge-pending" id="applicant-badge">5 total</span>
+        </div>
+        <div class="panel-body" id="applicants-list">
+          <div class="applicant-item">
+            <div class="app-avatar" style="background:linear-gradient(135deg,#7c6dfa,#a78bfa)">JL</div>
+            <div class="app-info">
+              <div class="app-name">Jamie Liu</div>
+              <div class="app-role">UI/UX Designer · ⭐ 4.9 (47 reviews)</div>
+            </div>
+            <div class="app-rate">$2,100</div>
+            <div>
+              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Jamie Liu')">Hire</button>
+            </div>
+          </div>
+          <div class="applicant-item">
+            <div class="app-avatar" style="background:linear-gradient(135deg,#2dd4bf,#34d399)">MR</div>
+            <div class="app-info">
+              <div class="app-name">Maya Rodriguez</div>
+              <div class="app-role">Product Designer · ⭐ 4.7 (31 reviews)</div>
+            </div>
+            <div class="app-rate">$2,400</div>
+            <div>
+              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Maya Rodriguez')">Hire</button>
+            </div>
+          </div>
+          <div class="applicant-item">
+            <div class="app-avatar" style="background:linear-gradient(135deg,#fbbf24,#f87171)">AK</div>
+            <div class="app-info">
+              <div class="app-name">Arjun Kumar</div>
+              <div class="app-role">Frontend Dev · ⭐ 4.8 (62 reviews)</div>
+            </div>
+            <div class="app-rate">$2,200</div>
+            <div>
+              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Arjun Kumar')">Hire</button>
+            </div>
+          </div>
+          <div class="applicant-item" style="opacity:0.5">
+            <div class="app-avatar" style="background:linear-gradient(135deg,#60a5fa,#7c6dfa)">TP</div>
+            <div class="app-info">
+              <div class="app-name">Tom Park</div>
+              <div class="app-role">Web3 Designer · ⭐ 4.5 (18 reviews)</div>
+            </div>
+            <div class="app-rate">$1,900</div>
+            <div>
+              <button class="btn btn-teal btn-sm" onclick="hireApplicant('Tom Park')">Hire</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== FREELANCER VIEW ===================== -->
+<div id="view-freelancer" class="view">
+<div class="page">
+  <div style="margin-bottom:2rem;">
+    <h1 class="page-title">Find Work</h1>
+    <p class="page-sub">Browse blockchain-verified jobs. Payments are escrow-protected — you get paid, guaranteed.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Active Applications</div>
+      <div class="stat-val accent">3</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Earnings in Escrow</div>
+      <div class="stat-val teal">$1,800</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Jobs Available</div>
+      <div class="stat-val amber">24</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Earned</div>
+      <div class="stat-val green">$14,220</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- LEFT: Job Listings -->
+    <div>
+      <div class="section-head">
+        <h2>Open Jobs</h2>
+        <div style="display:flex;gap:8px;">
+          <select class="form-select" style="width:auto;padding:6px 12px;font-size:0.8rem;">
+            <option>All Skills</option>
+            <option>Design</option>
+            <option>Development</option>
+            <option>Smart Contracts</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="job-listing-card">
+        <div class="jl-head">
+          <div>
+            <div class="jl-company"><span class="verified-dot"></span> TechVault Labs · Verified Client</div>
+            <div class="job-title">DeFi Dashboard UI Design</div>
+          </div>
+          <div class="jl-pay">
+            <div class="amount">$2,400</div>
+            <div class="locked-badge">🔒 Escrow Locked</div>
+          </div>
+        </div>
+        <div class="jl-desc">Design a comprehensive DeFi dashboard with wallet integration, portfolio tracking, and swap interfaces. Must be responsive and follow Web3 UX best practices.</div>
+        <div class="job-tags">
+          <span class="tag">Figma</span>
+          <span class="tag">Web3 UX</span>
+          <span class="tag">React</span>
+          <span class="tag">DeFi</span>
+        </div>
+        <div class="jl-foot">
+          <div class="jl-details">
+            <div class="jl-detail"><span class="detail-icon">📅</span> 14 days</div>
+            <div class="jl-detail"><span class="detail-icon">👥</span> 5 applicants</div>
+            <div class="jl-detail"><span class="detail-icon">⏰</span> 2h ago</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openApply('DeFi Dashboard UI Design', '$2,400')">Apply Now</button>
+        </div>
+      </div>
+
+      <div class="job-listing-card">
+        <div class="jl-head">
+          <div>
+            <div class="jl-company"><span class="verified-dot"></span> ChainSecure Inc · Verified Client</div>
+            <div class="job-title">Smart Contract Audit — ERC-20</div>
+          </div>
+          <div class="jl-pay">
+            <div class="amount">$3,200</div>
+            <div class="locked-badge">🔒 Escrow Locked</div>
+          </div>
+        </div>
+        <div class="jl-desc">Conduct a comprehensive security audit of our ERC-20 token contract. Provide a detailed report with vulnerability findings and mitigation strategies.</div>
+        <div class="job-tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">Security</span>
+          <span class="tag">Ethereum</span>
+        </div>
+        <div class="jl-foot">
+          <div class="jl-details">
+            <div class="jl-detail"><span class="detail-icon">📅</span> 10 days</div>
+            <div class="jl-detail"><span class="detail-icon">👥</span> 2 applicants</div>
+            <div class="jl-detail"><span class="detail-icon">⏰</span> 5h ago</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openApply('Smart Contract Audit — ERC-20', '$3,200')">Apply Now</button>
+        </div>
+      </div>
+
+      <div class="job-listing-card">
+        <div class="jl-head">
+          <div>
+            <div class="jl-company"><span class="verified-dot"></span> NexusDAO · Verified Client</div>
+            <div class="job-title">Blockchain Backend API</div>
+          </div>
+          <div class="jl-pay">
+            <div class="amount">$1,800</div>
+            <div class="locked-badge">🔒 Escrow Locked</div>
+          </div>
+        </div>
+        <div class="jl-desc">Build REST and GraphQL APIs for our blockchain indexer. Integration with IPFS for metadata storage, real-time WebSocket for on-chain events.</div>
+        <div class="job-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Web3.js</span>
+          <span class="tag">IPFS</span>
+          <span class="tag">GraphQL</span>
+        </div>
+        <div class="jl-foot">
+          <div class="jl-details">
+            <div class="jl-detail"><span class="detail-icon">📅</span> 21 days</div>
+            <div class="jl-detail"><span class="detail-icon">👥</span> 7 applicants</div>
+            <div class="jl-detail"><span class="detail-icon">⏰</span> 1d ago</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openApply('Blockchain Backend API', '$1,800')">Apply Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: My Applications -->
+    <div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>My Applications</h3>
+          <span class="badge badge-pending">3 active</span>
+        </div>
+        <div class="my-applications" id="my-applications-list">
+          <div class="app-row">
+            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(124,109,250,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--accent2);">💼</div>
+            <div class="app-row-info">
+              <div class="app-row-title">NFT Marketplace Design</div>
+              <div class="app-row-company">PixelVault Studios</div>
+            </div>
+            <div class="app-row-pay">$950</div>
+            <span class="badge badge-active">Hired</span>
+          </div>
+          <div class="app-row">
+            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
+            <div class="app-row-info">
+              <div class="app-row-title">DeFi Dashboard UI Design</div>
+              <div class="app-row-company">TechVault Labs</div>
+            </div>
+            <div class="app-row-pay">$2,100</div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+          <div class="app-row">
+            <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(45,212,191,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--teal);">✓</div>
+            <div class="app-row-info">
+              <div class="app-row-title">Token Branding Kit</div>
+              <div class="app-row-company">MoonRise Protocol</div>
+            </div>
+            <div class="app-row-pay">$600</div>
+            <span class="badge badge-completed">Paid</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escrow Tracker for Freelancer -->
+      <div class="panel" style="margin-top:16px;">
+        <div class="panel-head">
+          <h3>💰 Payment Tracker</h3>
+        </div>
+        <div class="panel-body">
+          <div class="escrow-amount">
+            <div class="label">Escrow Balance (You)</div>
+            <div class="value" style="font-size:1.8rem;">$950</div>
+            <div class="sub">NFT Marketplace Design · In Progress</div>
+          </div>
+
+          <div class="timer-display">
+            <div class="timer-val">08d 16h 12m</div>
+            <div class="timer-label">Estimated release (on completion)</div>
+          </div>
+
+          <div class="escrow-timeline">
+            <div class="timeline-step">
+              <div class="timeline-dot t-done">✓</div>
+              <div class="timeline-info">
+                <div class="tl">Client funded escrow</div>
+                <div class="ts">May 12 · $950 locked on-chain</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot t-done">✓</div>
+              <div class="timeline-info">
+                <div class="tl">You were selected</div>
+                <div class="ts">May 13 · Work order confirmed</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot t-active">⚡</div>
+              <div class="timeline-info">
+                <div class="tl">In progress</div>
+                <div class="ts">Deliver before May 24</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot t-pending">4</div>
+              <div class="timeline-info">
+                <div class="tl">Client review</div>
+                <div class="ts">Approval or dispute window: 3 days</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot t-pending">5</div>
+              <div class="timeline-info">
+                <div class="tl">Payment released to wallet</div>
+                <div class="ts">Automatic on approval</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================== POST JOB MODAL ===================== -->
+<div class="modal-overlay" id="post-job-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Post a New Job</h2>
+      <button class="close-btn" onclick="closeModal('post-job-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="escrow-info-box">
+        <div class="icon">🔒</div>
+        <p>Your payment will be <strong>locked in a smart contract escrow</strong> once you post. Funds are only released when you approve the work — or auto-released after the deadline. Fully on-chain and trustless.</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Job Title</label>
+        <input type="text" class="form-input" placeholder="e.g. DeFi Dashboard UI Design" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" placeholder="Describe the work, deliverables, and requirements..."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select">
+            <option>Design</option>
+            <option>Development</option>
+            <option>Smart Contracts</option>
+            <option>Marketing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Timeline (days)</label>
+          <input type="number" class="form-input" value="14" min="1" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Payment Amount (USD)</label>
+        <div class="amount-input-wrap">
+          <span class="currency">$</span>
+          <input type="number" class="form-input" id="payment-input" placeholder="0.00" oninput="updateLockPreview(this.value)" />
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:1.2rem;">
+        <div class="panel-body">
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Escrow Breakdown</div>
+          <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:6px;">
+            <span style="color:var(--muted)">Payment to freelancer</span>
+            <span id="breakdown-pay" style="font-family:var(--font-mono)">$0.00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.875rem;margin-bottom:6px;">
+            <span style="color:var(--muted)">Platform fee (3%)</span>
+            <span id="breakdown-fee" style="font-family:var(--font-mono);color:var(--muted)">$0.00</span>
+          </div>
+          <div style="border-top:1px solid var(--border);margin:8px 0;padding-top:8px;display:flex;justify-content:space-between;font-weight:600;">
+            <span>Total locked on-chain</span>
+            <span id="breakdown-total" style="font-family:var(--font-mono);color:var(--teal)">$0.00</span>
+          </div>
+          <div class="chain-visual" style="padding:8px 0 0;">
+            <div class="chain-block">Your wallet</div>
+            <span class="chain-arrow">→</span>
+            <div class="chain-block" style="color:var(--green)">Smart Contract</div>
+            <span class="chain-arrow">→</span>
+            <div class="chain-block">Freelancer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Skills Required</label>
+        <input type="text" class="form-input" placeholder="e.g. Figma, React, Solidity (comma separated)" />
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:0.5rem;">
+        <button class="btn btn-outline" style="flex:1;" onclick="closeModal('post-job-modal')">Cancel</button>
+        <button class="btn btn-primary" style="flex:2;" onclick="postJob()">🔒 Lock Funds & Post Job</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APPLY MODAL ===================== -->
+<div class="modal-overlay" id="apply-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Apply for Job</h2>
+      <button class="close-btn" onclick="closeModal('apply-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="panel" style="margin-bottom:1.2rem;">
+        <div class="panel-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-weight:600;font-size:0.95rem;" id="apply-job-title">Job Title</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:3px;">Client budget locked in escrow</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:1.2rem;color:var(--teal);" id="apply-job-pay">$0</div>
+              <div style="font-size:0.7rem;padding:2px 8px;border-radius:999px;background:rgba(124,109,250,0.15);color:var(--accent2);border:1px solid rgba(124,109,250,0.25);text-align:center;margin-top:4px;">🔒 Locked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Proposed Rate</label>
+        <div class="amount-input-wrap">
+          <span class="currency">$</span>
+          <input type="number" class="form-input" placeholder="Your bid amount" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cover Letter</label>
+        <textarea class="form-textarea" style="min-height:120px;" placeholder="Tell the client why you're the right fit, your relevant experience, and your approach to this project..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Portfolio Link (optional)</label>
+        <input type="text" class="form-input" placeholder="https://your-portfolio.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estimated Completion Time</label>
+        <select class="form-select">
+          <option>Within 7 days</option>
+          <option>Within 14 days</option>
+          <option>Within 21 days</option>
+          <option>Custom</option>
+        </select>
+      </div>
+
+      <div class="escrow-info-box">
+        <div class="icon">💡</div>
+        <p>Payment of <strong id="apply-escrow-amt">$0</strong> is already <strong>locked in escrow</strong> by the client. Once hired and work is approved, funds are released directly to your wallet — no payment risk.</p>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-outline" style="flex:1;" onclick="closeModal('apply-modal')">Cancel</button>
+        <button class="btn btn-primary" style="flex:2;" onclick="submitApplication()">Submit Application</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast hidden" id="toast">
+  <span class="toast-icon" id="toast-icon">✅</span>
+  <span id="toast-msg">Action completed</span>
+</div>
+
+<script>
+  let currentRole = 'client';
+  let currentJobIdx = 0;
+  let countdownInterval;
+
+  const jobs = [
+    { title: 'DeFi Dashboard UI Design', amount: '$2,400', days: 12, progress: 15, applicants: '5 total' },
+    { title: 'Smart Contract Audit — ERC-20', amount: '$3,200', days: 9, progress: 45, applicants: '1 hired' },
+    { title: 'Blockchain Backend API', amount: '$1,800', days: 14, progress: 5, applicants: '2 total' },
+    { title: 'NFT Marketplace Frontend', amount: '$1,050', days: 0, progress: 100, applicants: 'Completed' },
+  ];
+
+  function switchRole(role) {
+    currentRole = role;
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + role).classList.add('active');
+
+    if (role === 'client') {
+      document.getElementById('nav-username').textContent = 'Alex Chen';
+      document.getElementById('nav-avatar').textContent = 'AC';
+    } else {
+      document.getElementById('nav-username').textContent = 'Jamie Liu';
+      document.getElementById('nav-avatar').textContent = 'JL';
+    }
+  }
+
+  function selectJob(el, idx) {
+    document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    currentJobIdx = idx;
+    const job = jobs[idx];
+    document.getElementById('escrow-val').textContent = job.amount;
+    document.getElementById('escrow-sub').textContent = job.title;
+    document.getElementById('escrow-progress').style.width = job.progress + '%';
+    document.getElementById('applicant-badge').textContent = job.applicants;
+    startCountdown(job.days);
+  }
+
+  function startCountdown(days) {
+    clearInterval(countdownInterval);
+    let totalSecs = days * 86400 + Math.floor(Math.random() * 86400);
+    function update() {
+      const d = Math.floor(totalSecs / 86400);
+      const h = Math.floor((totalSecs % 86400) / 3600);
+      const m = Math.floor((totalSecs % 3600) / 60);
+      document.getElementById('countdown-display').textContent =
+        (d > 0 ? d + 'd ' : '') + String(h).padStart(2,'0') + 'h ' + String(m).padStart(2,'0') + 'm';
+      if (totalSecs > 0) totalSecs--;
+    }
+    update();
+    countdownInterval = setInterval(update, 60000);
+  }
+
+  function openPostJob() {
+    document.getElementById('post-job-modal').classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function updateLockPreview(val) {
+    const v = parseFloat(val) || 0;
+    const fee = v * 0.03;
+    const total = v + fee;
+    document.getElementById('breakdown-pay').textContent = '$' + v.toFixed(2);
+    document.getElementById('breakdown-fee').textContent = '$' + fee.toFixed(2);
+    document.getElementById('breakdown-total').textContent = '$' + total.toFixed(2);
+  }
+
+  function postJob() {
+    closeModal('post-job-modal');
+    showToast('🔒 Job posted! Funds locked in escrow.', '🔒');
+  }
+
+  function openApply(title, pay) {
+    document.getElementById('apply-job-title').textContent = title;
+    document.getElementById('apply-job-pay').textContent = pay;
+    document.getElementById('apply-escrow-amt').textContent = pay;
+    document.getElementById('apply-modal').classList.add('open');
+  }
+
+  function submitApplication() {
+    closeModal('apply-modal');
+    const title = document.getElementById('apply-job-title').textContent;
+    const pay = document.getElementById('apply-job-pay').textContent;
+    const list = document.getElementById('my-applications-list');
+    const div = document.createElement('div');
+    div.className = 'app-row';
+    div.innerHTML = `
+      <div class="app-avatar" style="width:36px;height:36px;border-radius:8px;background:rgba(251,191,36,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--amber);">⏳</div>
+      <div class="app-row-info">
+        <div class="app-row-title">${title}</div>
+        <div class="app-row-company">New Application</div>
+      </div>
+      <div class="app-row-pay">${pay}</div>
+      <span class="badge badge-pending">Pending</span>
+    `;
+    list.insertBefore(div, list.firstChild);
+    showToast('Application submitted! 🎉', '✅');
+  }
+
+  function hireApplicant(name) {
+    showToast(`${name} hired! Payment will release on delivery.`, '🤝');
+  }
+
+  function showToast(msg, icon) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    document.getElementById('toast-icon').textContent = icon;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 3500);
+  }
+
+  // Click outside modal to close
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+  });
+
+  startCountdown(12);
+</script>
+</body>
+</html>
